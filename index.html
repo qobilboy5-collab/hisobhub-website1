@@ -1,224 +1,513 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HalolHisob — Premium Buxgalteriya Xizmati</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HalolHisob — Premium Buxgalteriya</title>
+  <meta name="description" content="HalolHisob — premium buxgalteriya, soliq va konsalting xizmatlari. Halol va ishonchli." />
+  <meta property="og:title" content="HalolHisob — Premium Buxgalteriya" />
+  <meta property="og:description" content="HalolHisob — premium buxgalteriya, soliq va konsalting xizmatlari." />
+  <meta name="theme-color" content="#0b0b0b" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='100%25' height='100%25' fill='%23000'/%3E%3Ctext x='50%25' y='55%25' font-size='28' text-anchor='middle' fill='%23d4af37' font-family='Arial%2C%20sans-serif'%3EHH%3C/text%3E%3C/svg%3E">
 
-<style>
-/* ======== GLOBAL STYLE ======== */
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background: #000;
-  color: #fff;
-}
+  <style>
+  /* -------------------
+     Premium Black & Gold
+     Single-file stylesheet
+     ------------------- */
+  :root{
+    --bg:#050506;
+    --panel:#0f0f10;
+    --gold:#d4af37;
+    --gold-2:#c9a227;
+    --muted:#a7a7a7;
+    --glass: rgba(255,255,255,0.03);
+    --radius:14px;
+    --maxw:1100px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:linear-gradient(180deg,var(--bg),#020202);
+    color:#fff;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.5;
+  }
 
-.header {
-  text-align: center;
-  padding: 40px 20px;
-  background: linear-gradient(135deg, #c9a227, #000);
-  color: #fff;
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  border-bottom: 3px solid #c9a227;
-}
+  /* Loader */
+  #loader {
+    position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(180deg, rgba(0,0,0,0.9), rgba(0,0,0,0.95)); z-index:9999;
+    transition:opacity .45s ease;
+  }
+  .spinner{
+    display:flex;flex-direction:column;align-items:center;gap:14px;
+  }
+  .ring{
+    width:80px;height:80px;border-radius:50%;border:6px solid rgba(212,175,55,0.12);border-top-color:var(--gold);animation:spin 1.4s linear infinite;box-shadow:0 8px 30px rgba(212,175,55,0.1);
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loader-title{color:var(--gold);font-weight:800;letter-spacing:1px}
 
-/* Sections */
-.section {
-  margin: 25px auto;
-  max-width: 900px;
-  padding: 25px;
-  border-radius: 16px;
-  background: rgba(255, 215, 0, 0.08);
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  box-shadow: 0 0 25px rgba(255, 215, 0, 0.15);
-}
+  /* top bar & nav */
+  header.top{
+    position:sticky;top:0;z-index:60;
+    backdrop-filter: blur(6px);
+    background:linear-gradient(180deg, rgba(8,8,8,0.6), rgba(8,8,8,0.2));
+    border-bottom:1px solid rgba(255,255,255,0.03);
+  }
+  .top-inner{max-width:var(--maxw);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:12px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo-badge{
+    width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold-2));
+    display:flex;align-items:center;justify-content:center;color:#070707;font-weight:900;font-size:20px;box-shadow:0 10px 30px rgba(212,175,55,0.12);
+  }
+  .brand-title{font-weight:800;color:var(--gold);font-size:18px}
+  .brand-sub{font-size:12px;color:var(--muted)}
 
-/* Title */
-h2 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #e6c563;
-  margin-top: 0;
-}
+  nav.main{display:flex;gap:18px;align-items:center}
+  nav.main a{color:var(--muted);text-decoration:none;font-weight:600}
+  nav.main a:hover{color:var(--gold)}
 
-/* Inputs */
-input, textarea {
-  width: 100%;
-  background: #111;
-  border: 1px solid #c9a227;
-  padding: 12px;
-  margin-top: 10px;
-  margin-bottom: 18px;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 8px;
-}
+  .lang-switch{display:flex;gap:8px;align-items:center}
+  .lang-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:10px;color:var(--muted);cursor:pointer;font-weight:700}
+  .lang-btn.active{border-color:var(--gold);color:var(--gold)}
 
-/* Button */
-button {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, #e6c563, #c89f1d);
-  border: none;
-  color: black;
-  font-size: 18px;
-  font-weight: 700;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-button:hover {
-  filter: brightness(1.15);
-}
+  .cta{background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#070707;padding:10px 14px;border-radius:10px;font-weight:800;text-decoration:none}
 
-/* Language Switcher */
-.lang-box {
-  text-align: center;
-  margin-top: 15px;
-}
-.lang-btn {
-  background: none;
-  border: 1px solid #c9a227;
-  padding: 6px 15px;
-  color: #e6c563;
-  border-radius: 20px;
-  cursor: pointer;
-  margin: 5px;
-}
-.lang-btn:hover {
-  background: #c9a227;
-  color: #000;
-}
+  /* HERO */
+  .hero{padding:80px 20px 56px; text-align:center;}
+  .hero-inner{max-width:var(--maxw);margin:auto}
+  .kicker{display:inline-block;padding:8px 14px;border-radius:999px;background:rgba(212,175,55,0.06);color:var(--gold);font-weight:800;margin-bottom:16px}
+  .hero h1{font-size:44px;margin:0;color:var(--gold);letter-spacing:0.4px}
+  .hero p{max-width:900px;margin:14px auto 0;color:var(--muted);font-size:18px}
+  .hero-actions{margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{padding:12px 18px;border-radius:12px;font-weight:800;cursor:pointer}
+  .btn-primary{background:var(--gold);color:#070707}
+  .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
 
-/* Status Message */
-#status {
-  margin-top: 15px;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-}
-</style>
+  /* layout */
+  .wrap{max-width:var(--maxw);margin:34px auto;padding:0 20px;display:grid;grid-template-columns:1fr 360px;gap:28px}
+  @media(max-width:980px){.wrap{grid-template-columns:1fr;}}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:14px;border:1px solid rgba(255,255,255,0.03)}
+  h2{color:var(--gold);margin:0 0 12px 0;font-size:20px}
+
+  /* services */
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .svc{padding:18px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02);transition:transform .18s,box-shadow .18s}
+  .svc:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(212,175,55,0.06)}
+  .svc h3{margin:0;color:#fff}
+
+  /* pricing */
+  .pricing{display:flex;gap:12px;flex-wrap:wrap}
+  .plan{background:linear-gradient(180deg, rgba(212,175,55,0.04), rgba(255,255,255,0.01));padding:18px;border-radius:12px;min-width:200px;border:1px solid rgba(212,175,55,0.06)}
+  .plan .price{font-size:26px;font-weight:900;color:#fff;margin:10px 0}
+
+  /* team */
+  .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+  .member{text-align:center;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)}
+
+  /* contact */
+  .contact-card a{display:block;color:var(--gold);font-weight:700;margin-bottom:8px;text-decoration:none}
+  .small{color:var(--muted);font-size:13px}
+
+  input,textarea,select{width:100%;padding:12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff;margin-bottom:10px}
+  input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.35)}
+  .form-btn{background:var(--gold);color:#070707;padding:12px;border-radius:8px;border:none;font-weight:800;cursor:pointer}
+
+  /* map */
+  .map-embed{border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+
+  /* floating */
+  .floating{
+    position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:10px;z-index:90
+  }
+  .fab{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#070707;font-weight:900;text-decoration:none;box-shadow:0 10px 30px rgba(212,175,55,0.12)}
+
+  /* footer */
+  footer{margin-top:36px;padding:28px 20px;background:linear-gradient(180deg,#040404,#060606);color:var(--muted);text-align:center;border-top:1px solid rgba(255,255,255,0.03)}
+
+  /* animations */
+  .fade-up{opacity:0;transform:translateY(14px);transition:all .6s ease}
+  .fade-up.show{opacity:1;transform:none}
+  </style>
 </head>
-
 <body>
 
-<div class="header">HalolHisob — Premium Buxgalteriya Xizmati</div>
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="spinner">
+      <div class="ring" role="img" aria-hidden="true"></div>
+      <div class="loader-title">HalolHisob</div>
+    </div>
+  </div>
 
-<!-- LANGUAGE SWITCH -->
-<div class="lang-box">
-  <button class="lang-btn" onclick="setLang('uz')">🇺🇿 O‘zbekcha</button>
-  <button class="lang-btn" onclick="setLang('ru')">🇷🇺 Русский</button>
-</div>
+  <!-- NAV / HEADER -->
+  <header class="top">
+    <div class="top-inner">
+      <div class="brand">
+        <div class="logo-badge" aria-hidden="true">HH</div>
+        <div>
+          <div class="brand-title">HalolHisob</div>
+          <div class="brand-sub">Premium Buxgalteriya & Soliq</div>
+        </div>
+      </div>
 
-<!-- ABOUT -->
-<div class="section">
-  <h2 id="aboutTitle">Biz haqimizda</h2>
-  <p id="aboutText">
-    HalolHisob — ishonchli va qulay hisob-kitob, buxgalteriya va soliq xizmatlari markazi.
-  </p>
-</div>
+      <nav class="main" aria-label="navigation">
+        <a href="#about">Biz haqimizda</a>
+        <a href="#services">Xizmatlar</a>
+        <a href="#pricing">Narxlar</a>
+        <a href="#team">Jamoa</a>
+        <a href="#contact">Aloqa</a>
+        <a href="#map">Filiallar</a>
+      </nav>
 
-<!-- FORM -->
-<div class="section">
-  <h2 id="formTitle">Bog‘lanish formasi</h2>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="lang-switch" role="tablist">
+          <button class="lang-btn active" data-lang="uz">🇺🇿</button>
+          <button class="lang-btn" data-lang="ru">🇷🇺</button>
+        </div>
+        <a class="cta" href="#contact">Bepul maslahat</a>
+      </div>
+    </div>
+  </header>
 
-  <form id="contactForm">
-    <label id="nameLabel">Ism:</label>
-    <input type="text" id="name" required>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="kicker fade-up">Premium xizmat</div>
+      <h1 class="fade-up" id="heroTitle">Buxgalteriya va soliq xizmatlari — HalolHisob</h1>
+      <p class="fade-up" id="heroText">Hisob-kitoblaringiz ishonchli qo‘llarda — soliq, buxgalteriya va kadrlar bo‘yicha to‘liq servis.</p>
 
-    <label id="phoneLabel">Telefon:</label>
-    <input type="text" id="phone" required>
+      <div class="hero-actions fade-up">
+        <a class="btn btn-primary" href="#contact">Bepul maslahat</a>
+        <a class="btn btn-outline" href="#services">Xizmatlarimiz</a>
+      </div>
+    </div>
+  </section>
 
-    <label id="msgLabel">Xabar:</label>
-    <textarea id="message" rows="4" required></textarea>
+  <!-- MAIN -->
+  <main class="wrap">
 
-    <button type="submit" id="sendBtn">Yuborish</button>
+    <!-- LEFT (main) -->
+    <div>
+      <section id="about" class="card fade-up">
+        <h2>Biz haqimizda</h2>
+        <p>HalolHisob — korxona va tadbirkorlar uchun premium sinfdagi buxgalteriya, soliq va konsalting xizmatlarini taqdim etadi. Biz halol, shaffof va professional ishlaymiz.</p>
+      </section>
 
-    <div id="status"></div>
-  </form>
-</div>
+      <section id="services" class="card fade-up">
+        <h2>Xizmatlar</h2>
+        <div class="services-grid">
+          <div class="svc">
+            <h3>Buxgalteriya hisobini yuritish</h3>
+            <p class="small">Doimiy hisob-kitob, menyu tahlil va hisobotlar.</p>
+          </div>
+          <div class="svc">
+            <h3>Soliq hisobotlari</h3>
+            <p class="small">Soliq rejalashtirish va hisobotlarni topshirish.</p>
+          </div>
+          <div class="svc">
+            <h3>Konsalting</h3>
+            <p class="small">Moliyaviy va strategik maslahatlar.</p>
+          </div>
+          <div class="svc">
+            <h3>Kadrlar hisobi</h3>
+            <p class="small">Xodimlar hisobini yuritish va hujjatlar.</p>
+          </div>
+        </div>
+      </section>
 
-<!-- FOOTER -->
-<div class="section" style="text-align:center; font-size:14px;">
-  © 2025 HalolHisob — Premium xizmat
-</div>
+      <section id="pricing" class="card fade-up">
+        <h2>Narxlar</h2>
+        <div class="pricing">
+          <div class="plan">
+            <h4>BASIC</h4>
+            <div class="price">$99</div>
+            <ul class="small">
+              <li>Asosiy hisob-kitob</li>
+              <li>Yillik hisobot</li>
+            </ul>
+          </div>
+
+          <div class="plan">
+            <h4>STANDARD</h4>
+            <div class="price">$199</div>
+            <ul class="small">
+              <li>Barcha BASIC</li>
+              <li>Soliq maslahatlari</li>
+            </ul>
+          </div>
+
+          <div class="plan">
+            <h4>PREMIUM</h4>
+            <div class="price">$399</div>
+            <ul class="small">
+              <li>Barcha funksiya</li>
+              <li>Shaxsiy konsultant</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="team" class="card fade-up">
+        <h2>Jamoa</h2>
+        <div class="team">
+          <div class="member">
+            <div class="avatar" style="width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#222,#111);margin:0 auto 8px"></div>
+            <strong>Aziz</strong>
+            <div class="small">Bosh buxgalter</div>
+          </div>
+          <div class="member">
+            <div class="avatar" style="width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#222,#111);margin:0 auto 8px"></div>
+            <strong>Gulbahor</strong>
+            <div class="small">Soliq mutaxassisi</div>
+          </div>
+          <div class="member">
+            <div class="avatar" style="width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#222,#111);margin:0 auto 8px"></div>
+            <strong>Javlon</strong>
+            <div class="small">Kadrlar bo‘limi</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" class="card fade-up">
+        <h2>Mijozlar fikri</h2>
+        <div style="display:flex;gap:12px;overflow:auto;padding-bottom:8px">
+          <div style="min-width:280px;background:rgba(255,255,255,0.02);padding:12px;border-radius:8px">
+            <p class="small">“Juda professional xizmat, hamma hujjatlar joyida.”</p><div class="small">— Kamol</div>
+          </div>
+          <div style="min-width:280px;background:rgba(255,255,255,0.02);padding:12px;border-radius:8px">
+            <p class="small">“Soliq bo‘yicha aniq maslahatlar berdilar.”</p><div class="small">— Nilufar</div>
+          </div>
+          <div style="min-width:280px;background:rgba(255,255,255,0.02);padding:12px;border-radius:8px">
+            <p class="small">“Ish uslubi juda tartibli va tez.”</p><div class="small">— Sardor</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- RIGHT (sidebar) -->
+    <aside>
+      <div class="card fade-up contact-card">
+        <h2>Aloqa</h2>
+        <a href="tel:+998935680091">📞 +998 93 568 0091</a>
+        <a href="https://t.me/Qobuljon_91" target="_blank" rel="noopener">📱 Telegram</a>
+        <a href="https://maps.app.goo.gl/8NmrqxpXMERuyqqZ7" target="_blank" rel="noopener">📍 Manzil</a>
+        <div class="small">Ish vaqti: Dush–Shan 09:00–18:00</div>
+      </div>
+
+      <div class="card fade-up">
+        <h2>Bizga yozing</h2>
+        <form id="contactForm" style="display:grid;gap:12px">
+          <input type="text" id="cf_name" placeholder="Ismingiz" required>
+          <input type="text" id="cf_phone" placeholder="Telefon" required>
+          <input type="email" id="cf_email" placeholder="Email (ixtiyoriy)">
+          <textarea id="cf_message" rows="5" placeholder="Xabaringiz..." required></textarea>
+          <button id="cf_send" class="form-btn" type="submit">Yuborish</button>
+          <div id="cf_status" class="small" style="margin-top:6px"></div>
+          <div class="small" style="margin-top:8px;color:var(--muted)"><em>* Agar Telegram orqali yuborish muvaffaqiyatsiz bo‘lsa, email mijozingiz ochiladi (fallback).</em></div>
+        </form>
+      </div>
+
+      <div class="card fade-up">
+        <h2>Xarita</h2>
+        <div class="map-embed"><iframe src="https://www.google.com/maps?q=41.311081,69.240562&z=15&output=embed" style="width:100%;height:200px;border:0" loading="lazy"></iframe></div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Floating buttons -->
+  <div class="floating" aria-hidden="true">
+    <a class="fab" href="https://t.me/HisobHubBot" target="_blank" title="Telegram">✉️</a>
+    <a class="fab" href="https://wa.me/998935680091" target="_blank" title="WhatsApp">🟢</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div style="max-width:var(--maxw);margin:auto;padding:8px 20px">
+      <div style="font-weight:800;color:var(--gold)">HalolHisob</div>
+      <div class="small">© 2025 HalolHisob — Barcha huquqlar himoyalangan</div>
+    </div>
+  </footer>
 
 <script>
 /* ======================
-     LANGUAGE SYSTEM
-====================== */
+   Page init & loader
+   ====================== */
+document.addEventListener('DOMContentLoaded', ()=> {
+  // fade-up reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+  },{threshold:0.12});
+  document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
 
-const lang = {
-  uz: {
-    aboutTitle: "Biz haqimizda",
-    aboutText: "HalolHisob — ishonchli va qulay hisob-kitob, buxgalteriya va soliq xizmatlari markazi.",
-    formTitle: "Bog‘lanish formasi",
-    nameLabel: "Ism:",
-    phoneLabel: "Telefon:",
-    msgLabel: "Xabar:",
-    sendBtn: "Yuborish"
+  // hide loader after short delay
+  setTimeout(()=> {
+    const l = document.getElementById('loader');
+    if(l) l.style.opacity = '0', setTimeout(()=> l.remove(), 500);
+  }, 600);
+});
+
+/* ======================
+   Language (UZ / RU)
+   ====================== */
+const i18n = {
+  uz:{
+    heroTitle: "Buxgalteriya va soliq xizmatlari — HalolHisob",
+    heroText: "Hisob-kitoblaringiz ishonchli qo‘llarda — soliq, buxgalteriya va kadrlar bo‘yicha to‘liq servis.",
+    aboutH: "Biz haqimizda",
+    aboutP: "HalolHisob — korxona va tadbirkorlar uchun premium sinfdagi buxgalteriya, soliq va konsalting xizmatlarini taqdim etadi. Biz halol, shaffof va professional ishlaymiz.",
+    servicesH: "Xizmatlar",
+    pricingH: "Narxlar",
+    teamH: "Jamoa",
+    contactH: "Aloqa",
+    mapH: "Filiallar",
+    sendBtn: "Yuborish",
+    cf_success: "✔️ Muvaffaqiyatli yuborildi! Tez orada javob beramiz.",
+    cf_error: "❌ Xatolik! Iltimos keyinroq urinib ko‘ring."
   },
-  ru: {
-    aboutTitle: "О нас",
-    aboutText: "HalolHisob — надёжный центр бухгалтерских и налоговых услуг.",
-    formTitle: "Форма связи",
-    nameLabel: "Имя:",
-    phoneLabel: "Телефон:",
-    msgLabel: "Сообщение:",
-    sendBtn: "Отправить"
+  ru:{
+    heroTitle: "Бухгалтерские и налоговые услуги — HalolHisob",
+    heroText: "Ваши расчёты в надёжных руках — бухгалтерия, налоги и кадры под ключ.",
+    aboutH: "О нас",
+    aboutP: "HalolHisob предлагает премиальные бухгалтерские, налоговые и консалтинговые услуги для компаний и предпринимателей. Мы честны, прозрачны и профессиональны.",
+    servicesH: "Услуги",
+    pricingH: "Цены",
+    teamH: "Команда",
+    contactH: "Контакты",
+    mapH: "Филиалы",
+    sendBtn: "Отправить",
+    cf_success: "✔️ Успешно отправлено! Мы свяжемся с вами в ближайшее время.",
+    cf_error: "❌ Ошибка! Пожалуйста, попробуйте позже."
   }
 };
 
-function setLang(code) {
-  document.getElementById("aboutTitle").innerText = lang[code].aboutTitle;
-  document.getElementById("aboutText").innerText = lang[code].aboutText;
-  document.getElementById("formTitle").innerText = lang[code].formTitle;
-  document.getElementById("nameLabel").innerText = lang[code].nameLabel;
-  document.getElementById("phoneLabel").innerText = lang[code].phoneLabel;
-  document.getElementById("msgLabel").innerText = lang[code].msgLabel;
-  document.getElementById("sendBtn").innerText = lang[code].sendBtn;
+function applyLang(code){
+  // hero
+  document.getElementById('heroTitle').innerText = i18n[code].heroTitle;
+  document.getElementById('heroText').innerText = i18n[code].heroText;
+  // about
+  document.querySelector('#about h2').innerText = i18n[code].aboutH;
+  document.querySelector('#about p').innerText = i18n[code].aboutP;
+  // services header
+  document.querySelector('#services h2').innerText = i18n[code].servicesH;
+  document.querySelector('#pricing h2').innerText = i18n[code].pricingH;
+  document.querySelector('#team h2').innerText = i18n[code].teamH;
+  document.querySelector('#contact h2').innerText = i18n[code].contactH;
+  document.querySelector('#map h2').innerText = i18n[code].mapH;
+  document.getElementById('cf_send')?.setAttribute('value', i18n[code].sendBtn);
+  // form button text
+  document.querySelectorAll('.form-btn, #cf_send, .btn-primary').forEach(b=>{
+    if(b.tagName === 'BUTTON') b.innerText = i18n[code].sendBtn;
+    else b.value = i18n[code].sendBtn;
+  });
+}
+
+// wire language buttons
+document.querySelectorAll('.lang-btn').forEach(b=>{
+  b.addEventListener('click', ()=> {
+    document.querySelectorAll('.lang-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const code = b.dataset?.lang || (b.innerText.includes('🇷')? 'ru' : 'uz');
+    applyLang(code);
+  });
+});
+// init default
+applyLang('uz');
+
+/* ======================
+   TELEGRAM CONTACT FORM
+   ====================== */
+
+/*
+  NOTE: You provided BOT_TOKEN and CHAT_ID.
+  These are embedded here so form sends directly to your Telegram group.
+  If you later want increased security, move sending to serverless (Netlify/Vercel) and keep token in env.
+*/
+const BOT_TOKEN = "AAFw2hqQ5cgFuBanGgnFCchEL6opX3r_E74";
+const CHAT_ID = "-1003236510040";
+
+const contactForm = document.getElementById('cf_send') ? document.getElementById('contactForm') : document.getElementById('contactForm');
+const statusEl = document.getElementById('cf_status') || document.getElementById('status');
+
+if(contactForm){
+  contactForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const name = document.getElementById('cf_name') ? document.getElementById('cf_name').value.trim() : '';
+    const phone = document.getElementById('cf_phone') ? document.getElementById('cf_phone').value.trim() : '';
+    const email = document.getElementById('cf_email') ? document.getElementById('cf_email').value.trim() : '';
+    const message = document.getElementById('cf_message') ? document.getElementById('cf_message').value.trim() : '';
+
+    if(!name || !phone || !message){
+      (statusEl).style.color = '#ffb3b3';
+      (statusEl).innerText = 'Iltimos barcha majburiy maydonlarni to‘ldiring.';
+      return;
+    }
+
+    (statusEl).style.color = 'var(--gold)';
+    (statusEl).innerText = '⏳ Yuborilmoqda...';
+
+    // pretty multi-line message
+    const text = `📨 *Yangi murojaat*%0A%0A*Ism:* ${encodeURIComponent(name)}%0A*Telefon:* ${encodeURIComponent(phone)}%0A*Email:* ${encodeURIComponent(email)}%0A*Xabar:* ${encodeURIComponent(message)}`;
+
+    // 1) try direct Telegram API (may be blocked in some browsers by CORS, but usually works)
+    try{
+      const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ chat_id: CHAT_ID, text: decodeURIComponent(text), parse_mode:'Markdown' })
+      });
+      if(res.ok){
+        statusEl.style.color = '#4cff4c';
+        statusEl.innerText = i18n['uz'].cf_success;
+        contactForm.reset();
+        return;
+      } else {
+        // fallback to GET (some servers accept)
+        const r2 = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(decodeURIComponent(text))}`);
+        if(r2.ok){
+          statusEl.style.color = '#4cff4c';
+          statusEl.innerText = i18n['uz'].cf_success;
+          contactForm.reset();
+          return;
+        }
+        // else continue to mailto fallback
+      }
+    }catch(err){
+      console.warn('Direct Telegram failed', err);
+    }
+
+    // 2) mailto fallback (opens user's mail client)
+    try{
+      const subject = encodeURIComponent(`HalolHisob: Yangi murojaat - ${name}`);
+      const body = encodeURIComponent(`Ism: ${name}\nTelefon: ${phone}\nEmail: ${email}\n\nXabar:\n${message}`);
+      window.location.href = `mailto:info@halolhisob.uz?subject=${subject}&body=${body}`;
+      statusEl.style.color = '#e6c563';
+      statusEl.innerText = '📧 Email mijozingiz ochilmoqda (fallback).';
+    }catch(err){
+      statusEl.style.color = 'red';
+      statusEl.innerText = i18n['uz'].cf_error;
+    }
+  });
 }
 
 /* ======================
-  TELEGRAM BOT SETTINGS
-====================== */
+   Small helpers
+   ====================== */
+(function attachNavScrolling(){
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', function(e){
+      const target = document.querySelector(this.getAttribute('href'));
+      if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
+    });
+  });
+})();
 
-const BOT_TOKEN = "AAFw2hqQ5cgFuBanGgnFCchEL6opX3r_E74";  // siz bergan token
-const CHAT_ID = "-1003236510040";                        // kanal ID
-
-/* ======================
-   FORM SUBMIT HANDLER
-====================== */
-
-document.getElementById("contactForm").addEventListener("submit", async function(e){
-  e.preventDefault();
-
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let message = document.getElementById("message").value;
-
-  let status = document.getElementById("status");
-  status.style.color = "#e6c563";
-  status.innerText = "⏳ Yuborilmoqda...";
-
-  let text = `📩 Yangi murojaat:%0A%0A👤 Ism: ${name}%0A📞 Telefon: ${phone}%0A📝 Xabar: ${message}`;
-
-  try {
-    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${text}`);
-
-    status.style.color = "#4cff4c";
-    status.innerText = "✔️ Muvaffaqiyatli yuborildi!";
-    document.getElementById("contactForm").reset();
-
-  } catch (err) {
-    status.style.color = "red";
-    status.innerText = "❌ Xatolik! Keyinroq urinib ko‘ring.";
-  }
-});
 </script>
 
 </body>
