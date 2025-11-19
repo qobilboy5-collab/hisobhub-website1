@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HisobHub — Premium Buxgalteriya xizmatlari</title>
+
+  <!-- Google Font (Inter) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <meta name="description" content="HisobHub — premium buxgalteriya, soliq va konsalting xizmatlari. Ishonchli va professional." />
+
+  <style>
+    :root{
+      --bg: #070707;
+      --panel: #0f0f0f;
+      --gold: #d4af37;
+      --gold-700: #b88a24;
+      --muted: #bfbfbf;
+      --white: #ffffff;
+      --glass: rgba(255,255,255,0.03);
+      --radius: 14px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Inter',system-ui,Arial,sans-serif;
+      background:linear-gradient(180deg,var(--bg),#050505);
+      color:var(--white);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.6;
+    }
+
+    a{color:inherit}
+    img{max-width:100%;display:block}
+
+    /* NAV */
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:14px 20px;
+      position:sticky;
+      top:0;
+      z-index:999;
+      backdrop-filter: blur(6px);
+      background:linear-gradient(90deg, rgba(0,0,0,0.55), rgba(0,0,0,0.25));
+      border-bottom:1px solid rgba(255,255,255,0.03);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .logo-square{
+      width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--gold),var(--gold-700));
+      color:#070707;font-weight:800;font-size:18px;box-shadow:0 6px 18px rgba(212,175,55,0.12);
+    }
+    .brand-name{font-weight:800;color:var(--gold);font-size:18px;letter-spacing:0.3px}
+    .brand-tag{font-size:12px;color:var(--muted);margin-top:2px}
+
+    .nav-links{display:flex;gap:18px;align-items:center}
+    .nav-links a{color:var(--muted);text-decoration:none;font-weight:600}
+    .nav-links a:hover{color:var(--gold)}
+
+    .controls{display:flex;gap:10px;align-items:center}
+    .lang-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:9px;color:var(--muted);cursor:pointer;font-weight:700}
+    .lang-btn.active{border-color:var(--gold);color:var(--gold)}
+    .cta{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:800}
+    .cta:hover{background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(201,165,58,0.04));}
+
+    /* mobile */
+    .hamb{display:none;background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px;border-radius:8px;cursor:pointer;color:var(--muted)}
+    @media (max-width:920px){
+      .nav-links{display:none}
+      .hamb{display:block}
+    }
+
+    .mobile-menu{display:none;position:absolute;left:12px;right:12px;top:64px;background:var(--panel);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .mobile-menu.show{display:block}
+
+    /* HERO */
+    .hero{
+      padding:72px 20px 56px;
+      text-align:center;
+      background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+      border-bottom-left-radius:40px;border-bottom-right-radius:40px;
+      box-shadow:0 8px 40px rgba(0,0,0,0.6) inset;
+    }
+    .hero h1{font-size:40px;margin:0;color:var(--gold);letter-spacing:0.3px}
+    .hero p{max-width:900px;margin:14px auto 0;color:var(--muted);font-size:18px}
+
+    .hero-actions{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn{padding:12px 18px;border-radius:10px;font-weight:800;text-decoration:none}
+    .btn-primary{background:var(--gold);color:#070707}
+    .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* layout */
+    .container{max-width:1100px;margin:34px auto;padding:0 20px}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:28px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}}
+
+    .section{background:var(--panel);padding:22px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+    h2{color:var(--gold);margin:0 0 12px 0;font-size:20px}
+
+    /* services */
+    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .card h3{margin:0;font-size:18px;color:#fff}
+    .card p{margin-top:8px;color:var(--muted);font-size:14px}
+
+    /* pricing */
+    .pricing{display:flex;gap:12px;flex-wrap:wrap}
+    .plan{background:linear-gradient(180deg, rgba(212,175,55,0.04), rgba(255,255,255,0.01));padding:18px;border-radius:12px;min-width:200px;border:1px solid rgba(212,175,55,0.06)}
+    .plan h4{margin:0;color:var(--gold);font-size:16px}
+    .plan .price{font-size:26px;font-weight:800;color:#fff;margin:10px 0}
+
+    /* team */
+    .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+    .member{text-align:center;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)}
+    .avatar{width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#222,#111);display:inline-block;margin-bottom:8px}
+
+    /* gallery */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .gallery img{height:120px;object-fit:cover;border-radius:8px}
+    @media (max-width:600px){.gallery{grid-template-columns:repeat(2,1fr)}}
+
+    /* testimonials */
+    .testimonials{overflow:hidden;position:relative}
+    .t-wrap{display:flex;transition:transform 0.5s ease}
+    .t{min-width:100%;padding:12px}
+
+    /* sidebar */
+    .contact-card a{display:block;color:var(--gold);font-weight:700;margin-bottom:8px;text-decoration:none}
+    .small{color:var(--muted);font-size:13px}
+
+    /* contact form */
+    input[type=text],input[type=email],textarea{width:100%;padding:12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--white);margin-bottom:10px}
+    input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.35)}
+    .form-btn{background:var(--gold);color:#070707;padding:12px;border-radius:8px;border:none;font-weight:800;cursor:pointer}
+
+    footer{margin-top:36px;padding:28px 20px;background:linear-gradient(180deg,#040404,#060606)}
+    .f-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;max-width:1100px;margin:auto}
+    @media(max-width:800px){.f-grid{grid-template-columns:1fr}}
+
+    /* helper */
+    .muted{color:var(--muted)}
+    .center{text-align:center}
+
+    /* fade-up */
+    .fade-up{opacity:0;transform:translateY(12px);transition:all 0.6s ease}
+    .fade-up.show{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="brand">
+      <div class="logo-square" aria-hidden="true">HH</div>
+      <div>
+        <div class="brand-name" id="brandName">HisobHub</div>
+        <div class="brand-tag muted" id="brandTag">Buxgalteriya & Soliq</div>
+      </div>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#about" data-key="nav_about">Biz haqimizda</a>
+      <a href="#services" data-key="nav_services">Xizmatlar</a>
+      <a href="#pricing" data-key="nav_pricing">Narxlar</a>
+      <a href="#team" data-key="nav_team">Jamoa</a>
+      <a href="#contact" data-key="nav_contact">Aloqa</a>
+    </div>
+
+    <div class="controls">
+      <button class="hamb" id="hamb">☰</button>
+
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="lang-btn active" data-lang="uz">UZ</button>
+        <button class="lang-btn" data-lang="ru">RU</button>
+      </div>
+
+      <a class="cta" href="#contact" data-key="get_quote">Bepul maslahat</a>
+    </div>
+  </nav>
+
+  <!-- mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="#about" style="display:block;padding:8px;color:var(--muted)">Biz haqimizda</a>
+    <a href="#services" style="display:block;padding:8px;color:var(--muted)">Xizmatlar</a>
+    <a href="#pricing" style="display:block;padding:8px;color:var(--muted)">Narxlar</a>
+    <a href="#team" style="display:block;padding:8px;color:var(--muted)">Jamoa</a>
+    <a href="#contact" style="display:block;padding:8px;color:var(--muted)">Aloqa</a>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <h1 data-key="hero_title">Buxgalteriya xizmatlari — Premium darajada</h1>
+    <p data-key="hero_sub">HisobHub — sizning biznesingiz uchun ishonchli va maxfiy moliyaviy sherik. Soliq, buxgalteriya va kadrlar bo‘yicha to‘liq qo‘llab-quvvatlash.</p>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary" data-key="cta_consult">Bepul maslahat olish</a>
+      <a href="#services" class="btn btn-outline" data-key="cta_services">Xizmatlarimizni ko‘rish</a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container">
+    <div class="grid">
+
+      <!-- MAIN COLUMN -->
+      <div>
+
+        <section class="section fade-up" id="about">
+          <h2 data-key="about_title">Biz haqimizda</h2>
+          <p data-key="about_text">HisobHub — korporativ va kichik bizneslar uchun premium buxgalteriya, soliq va konsalting xizmatlarini taklif etadi. Biz qonuniy va zamonaviy metodlarni qo‘llab, biznes jarayonlarini soddalashtiramiz.</p>
+        </section>
+
+        <section class="section fade-up" id="services">
+          <h2 data-key="services_title">Xizmatlar</h2>
+          <div class="services">
+            <div class="card">
+              <h3 data-key="svc_accounting">Buxgalteriya hisobini yuritish</h3>
+              <p data-key="svc_accounting_text">Hisob-kitoblarni to‘g‘ri va vaqtida yuritib boramiz.</p>
+            </div>
+            <div class="card">
+              <h3 data-key="svc_tax">Soliq hisobotlari</h3>
+              <p data-key="svc_tax_text">Soliqlar bo‘yicha to‘liq moslashtirilgan hisobotlar.</p>
+            </div>
+            <div class="card">
+              <h3 data-key="svc_consult">Konsalting</h3>
+              <p data-key="svc_consult_text">Moliyaviy va strategik konsalting xizmatlari.</p>
+            </div>
+            <div class="card">
+              <h3 data-key="svc_hr">Kadrlar hisobi</h3>
+              <p data-key="svc_hr_text">Xodimlar bilan bog‘liq barcha jarayonlarni boshqaramiz.</p>
+            </div>
+            <div class="card">
+              <h3 data-key="svc_reports">Bir martalik hisobotlar</h3>
+              <p data-key="svc_reports_text">Maxsus tayyorlangan hisobotlar tez va aniq.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section fade-up" id="pricing">
+          <h2 data-key="pricing_title">Narxlar</h2>
+          <div class="pricing">
+            <div class="plan">
+              <h4 data-key="plan_basic">BASIC</h4>
+              <div class="price">$99</div>
+              <ul>
+                <li data-key="plan_basic_1">Asosiy hisob-kitob</li>
+                <li data-key="plan_basic_2">Yillik hisobot</li>
+              </ul>
+            </div>
+
+            <div class="plan">
+              <h4 data-key="plan_standard">STANDARD</h4>
+              <div class="price">$199</div>
+              <ul>
+                <li data-key="plan_std_1">Barcha BASIC funksiyalar</li>
+                <li data-key="plan_std_2">Soliq maslahatlari</li>
+              </ul>
+            </div>
+
+            <div class="plan">
+              <h4 data-key="plan_premium">PREMIUM</h4>
+              <div class="price">$399</div>
+              <ul>
+                <li data-key="plan_prem_1">Barcha funktsiyalar</li>
+                <li data-key="plan_prem_2">Shaxsiy konsultant</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section fade-up" id="team">
+          <h2 data-key="team_title">Bizning jamoa</h2>
+          <div class="team">
+            <div class="member">
+              <div class="avatar" aria-hidden="true"></div>
+              <h5 data-key="member_1_name">Aziz</h5>
+              <p data-key="member_1_role">Bosh buxgalter</p>
+            </div>
+            <div class="member">
+              <div class="avatar" aria-hidden="true"></div>
+              <h5 data-key="member_2_name">Gulbahor</h5>
+              <p data-key="member_2_role">Soliq mutaxassisi</p>
+            </div>
+            <div class="member">
+              <div class="avatar" aria-hidden="true"></div>
+              <h5 data-key="member_3_name">Javlon</h5>
+              <p data-key="member_3_role">Kadrlar bo‘limi</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section fade-up" id="portfolio">
+          <h2 data-key="portfolio_title">Portfolio & Galereya</h2>
+          <div class="gallery" aria-hidden="true">
+            <img src="https://placehold.co/600x400/111/fff?text=Project+1" alt="Project 1">
+            <img src="https://placehold.co/600x400/111/fff?text=Project+2" alt="Project 2">
+            <img src="https://placehold.co/600x400/111/fff?text=Project+3" alt="Project 3">
+            <img src="https://placehold.co/600x400/111/fff?text=Project+4" alt="Project 4">
+            <img src="https://placehold.co/600x400/111/fff?text=Project+5" alt="Project 5">
+            <img src="https://placehold.co/600x400/111/fff?text=Project+6" alt="Project 6">
+          </div>
+        </section>
+
+        <section class="section fade-up testimonials">
+          <h2 data-key="testimonials_title">Mijozlar fikri</h2>
+          <div class="t-wrap" id="twrap">
+            <div class="t">
+              <p class="muted">“Juda professional xizmat, hamma hujjatlarimiz joyida.”</p>
+              <p class="small">— Kamol, Mijoz</p>
+            </div>
+            <div class="t">
+              <p class="muted">“Soliq bo‘yicha aniq va foydali maslahatlar berdilar.”</p>
+              <p class="small">— Nilufar, Direktor</p>
+            </div>
+            <div class="t">
+              <p class="muted">“Jamoa doimo vaqti-vaqti bilan xabar beradi — ish juda yoqdi.”</p>
+              <p class="small">— Sardor, Biznes egasi</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="section fade-up">
+          <h2 data-key="contact_title">Aloqa</h2>
+          <div class="contact-card">
+            <a href="tel:+998935680091">📞 +998 93 568 0091</a>
+            <a href="https://t.me/Qobuljon_91" target="_blank" rel="noopener">📱 Telegram</a>
+            <a href="https://maps.app.goo.gl/8NmrqxpXMERuyqqZ7" target="_blank" rel="noopener">📍 Manzil</a>
+            <div class="small">Ish vaqti: Dushanba — Shanba, 09:00 — 18:00</div>
+          </div>
+        </div>
+
+        <div class="section fade-up">
+          <h2 data-key="newsletter_title">Yangiliklarga obuna</h2>
+          <p class="small" data-key="newsletter_text">Elektron manzilingizni qoldiring, yangiliklar va soliq eslatmalarini yuboramiz.</p>
+          <form id="newsletterForm">
+            <input type="email" id="newsEmail" placeholder="Email..." required>
+            <button type="submit" class="cta" style="width:100%">Obuna bo'lish</button>
+          </form>
+        </div>
+
+        <div class="section fade-up">
+          <h2 data-key="map_title">Xarita</h2>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)">
+            <!-- Embedded map centered on Tashkent coordinates as example -->
+            <iframe src="https://www.google.com/maps?q=41.311081,69.240562&z=15&output=embed" style="width:100%;height:200px;border:0" loading="lazy"></iframe>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <section class="section fade-up" id="contact" style="margin-top:24px">
+      <h2 data-key="contact_form_title">Bizga yozing</h2>
+      <p class="small" data-key="contact_form_text">Savollaringizni qoldiring va biz 1 ish kunida javob beramiz.</p>
+
+      <form id="contactForm" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+        <input type="text" id="name" placeholder="Ismingiz" required>
+        <input type="text" id="phone" placeholder="Telefon" required>
+        <input type="email" id="email" placeholder="Email (ixtiyoriy)">
+        <input type="text" id="subject" placeholder="Mavzu">
+        <textarea id="message" placeholder="Xabaringiz..." rows="6" style="grid-column:1/3" required></textarea>
+        <button class="form-btn" style="grid-column:1/3" type="submit">Yuborish</button>
+      </form>
+
+      <div class="small" style="margin-top:12px">* Forma demo: server bo'lmasa, mailto orqali ochiladi.</div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-grid">
+      <div>
+        <div class="brand-name" style="color:var(--gold);font-weight:800">HisobHub</div>
+        <div class="small">Premium buxgalteriya va konsalting</div>
+      </div>
+
+      <div>
+        <h4 style="color:var(--gold);margin:0 0 8px 0">Tez havolalar</h4>
+        <div class="small">
+          <a href="#services" style="color:var(--muted);text-decoration:none">Xizmatlar</a><br>
+          <a href="#pricing" style="color:var(--muted);text-decoration:none">Narxlar</a>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="color:var(--gold);margin:0 0 8px 0">Aloqa</h4>
+        <div class="small">📞 +998 93 568 0091<br>✉️ info@hisobhub.uz</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;color:var(--muted);margin-top:16px">© 2025 HisobHub. Barcha huquqlar himoyalangan.</div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // TRANSLATIONS (keyed strings)
+    const translations = {
+      uz: {
+        nav_about: 'Biz haqimizda',
+        nav_services: 'Xizmatlar',
+        nav_pricing: 'Narxlar',
+        nav_team: 'Jamoa',
+        nav_contact: 'Aloqa',
+        get_quote: 'Bepul maslahat',
+        hero_title: 'Buxgalteriya xizmatlari — Premium darajada',
+        hero_sub: 'HisobHub — sizning biznesingiz uchun ishonchli va maxfiy moliyaviy sherik. Soliq, buxgalteriya va kadrlar bo‘yicha to‘liq qo‘llab-quvvatlash.',
+        cta_consult: 'Bepul maslahat olish',
+        cta_services: 'Xizmatlarimizni ko‘rish',
+        about_title: 'Biz haqimizda',
+        about_text: 'HisobHub — korporativ va kichik bizneslar uchun premium buxgalteriya, soliq va konsalting xizmatlarini taklif etadi. Biz qonuniy va zamonaviy metodlarni qo‘llab, biznes jarayonlarini soddalashtiramiz.',
+        services_title: 'Xizmatlar',
+        svc_accounting: 'Buxgalteriya hisobini yuritish',
+        svc_accounting_text: 'Hisob-kitoblarni to‘g‘ri va vaqtida yuritib boramiz.',
+        svc_tax: 'Soliq hisobotlari',
+        svc_tax_text: 'Soliqlar bo‘yicha to‘liq moslashtirilgan hisobotlar.',
+        svc_consult: 'Konsalting',
+        svc_consult_text: 'Moliyaviy va strategik konsalting xizmatlari.',
+        svc_hr: 'Kadrlar hisobi',
+        svc_hr_text: 'Xodimlar bilan bog‘liq barcha jarayonlarni boshqaramiz.',
+        svc_reports: 'Bir martalik hisobotlar',
+        svc_reports_text: 'Maxsus tayyorlangan hisobotlar tez va aniq.',
+        pricing_title: 'Narxlar',
+        plan_basic: 'BASIC',
+        plan_basic_1: 'Asosiy hisob-kitob',
+        plan_basic_2: 'Yillik hisobot',
+        plan_standard: 'STANDARD',
+        plan_std_1: 'Barcha BASIC funksiyalar',
+        plan_std_2: 'Soliq maslahatlari',
+        plan_premium: 'PREMIUM',
+        plan_prem_1: 'Barcha funktsiyalar',
+        plan_prem_2: 'Shaxsiy konsultant',
+        team_title: 'Bizning jamoa',
+        member_1_name: 'Aziz',
+        member_1_role: 'Bosh buxgalter',
+        member_2_name: 'Gulbahor',
+        member_2_role: 'Soliq mutaxassisi',
+        member_3_name: 'Javlon',
+        member_3_role: 'Kadrlar bo‘limi',
+        portfolio_title: 'Portfolio & Galereya',
+        testimonials_title: 'Mijozlar fikri',
+        contact_title: 'Aloqa',
+        newsletter_title: 'Yangiliklarga obuna',
+        newsletter_text: 'Elektron manzilingizni qoldiring, yangiliklar va soliq eslatmalarini yuboramiz.',
+        map_title: 'Xarita',
+        contact_form_title: 'Bizga yozing',
+        contact_form_text: 'Savollaringizni qoldiring va biz 1 ish kunida javob beramiz.'
+      },
+      ru: {
+        nav_about: 'О нас',
+        nav_services: 'Услуги',
+        nav_pricing: 'Цены',
+        nav_team: 'Команда',
+        nav_contact: 'Контакты',
+        get_quote: 'Бесплатная консультация',
+        hero_title: 'Бухгалтерские услуги — Премиум уровень',
+        hero_sub: 'HisobHub — ваш надежный и конфиденциальный финансовый партнер. Налоги, бухгалтерия и кадровая поддержка — всё под ключ.',
+        cta_consult: 'Получить консультацию',
+        cta_services: 'Посмотреть услуги',
+        about_title: 'О нас',
+        about_text: 'HisobHub предлагает премиум бухгалтерские, налоговые и консалтинговые услуги для корпоративных и малых предприятий. Мы помогаем автоматизировать и упорядочить бизнес-процессы.',
+        services_title: 'Услуги',
+        svc_accounting: 'Ведение бухгалтерии',
+        svc_accounting_text: 'Мы обеспечиваем своевременное и корректное ведение учёта.',
+        svc_tax: 'Налоговая отчётность',
+        svc_tax_text: 'Полностью адаптированные налоговые отчёты.',
+        svc_consult: 'Консалтинг',
+        svc_consult_text: 'Финансовый и стратегический консалтинг.',
+        svc_hr: 'Кадровый учёт',
+        svc_hr_text: 'Все процессы, связанные с сотрудниками.',
+        svc_reports: 'Разовые отчёты',
+        svc_reports_text: 'Специальные отчёты быстро и точно.',
+        pricing_title: 'Цены',
+        plan_basic: 'BASIC',
+        plan_basic_1: 'Базовый учёт',
+        plan_basic_2: 'Годовой отчёт',
+        plan_standard: 'STANDARD',
+        plan_std_1: 'Все функции BASIC',
+        plan_std_2: 'Налоговые консультации',
+        plan_premium: 'PREMIUM',
+        plan_prem_1: 'Все функции',
+        plan_prem_2: 'Персональный консультант',
+        team_title: 'Наша команда',
+        member_1_name: 'Азиз',
+        member_1_role: 'Гл. бухгалтер',
+        member_2_name: 'Гульбахор',
+        member_2_role: 'Налоговый эксперт',
+        member_3_name: 'Джавлон',
+        member_3_role: 'Кадровый отдел',
+        portfolio_title: 'Портфолио & Галерея',
+        testimonials_title: 'Отзывы клиентов',
+        contact_title: 'Контакты',
+        newsletter_title: 'Подписка',
+        newsletter_text: 'Оставьте ваш email, мы пришлём новости и напоминания по налогам.',
+        map_title: 'Карта',
+        contact_form_title: 'Напишите нам',
+        contact_form_text: 'Оставьте вопрос, мы ответим в течение 1 рабочего дня.'
+      }
+    };
+
+    // Apply translations
+    function apply(lang){
+      document.querySelectorAll('[data-key]').forEach(el=>{
+        const key = el.getAttribute('data-key');
+        if(translations[lang] && translations[lang][key]) el.innerText = translations[lang][key];
+      });
+      // lang button active class
+      document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.dataset.lang === lang));
+    }
+
+    // init
+    let currentLang = 'uz';
+    apply(currentLang);
+
+    // wire language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=> {
+        const l = btn.dataset.lang;
+        currentLang = l;
+        apply(l);
+      });
+    });
+
+    // fade-up observer
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('show');
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+
+    // testimonials slider
+    let tIndex = 0;
+    const twrap = document.getElementById('twrap');
+    setInterval(()=> {
+      tIndex = (tIndex + 1) % 3;
+      if(twrap) twrap.style.transform = `translateX(-${tIndex*100}%)`;
+    }, 5000);
+
+    // mobile menu toggle
+    const hamb = document.getElementById('hamb');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if(hamb){
+      hamb.addEventListener('click', ()=> mobileMenu.classList.toggle('show'));
+    }
+
+    // contact form (demo via mailto)
+    const contactForm = document.getElementById('contactForm');
+    if(contactForm){
+      contactForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        const name = document.getElementById('name').value || '';
+        const phone = document.getElementById('phone').value || '';
+        const email = document.getElementById('email').value || '';
+        const subject = document.getElementById('subject').value || 'Website contact';
+        const message = document.getElementById('message').value || '';
+        const body = encodeURIComponent(`Ism: ${name}\nTelefon: ${phone}\nEmail: ${email}\nMavzu: ${subject}\n\n${message}`);
+        window.location.href = `mailto:info@hisobhub.uz?subject=${encodeURIComponent(subject)}&body=${body}`;
+      });
+    }
+
+    // newsletter demo
+    const newsForm = document.getElementById('newsletterForm');
+    if(newsForm){
+      newsForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        const email = document.getElementById('newsEmail').value || '';
+        alert('Rahmat! '+ email + ' manziliga yangiliklar uchun ro‘yxatga olindingiz (demo).');
+        document.getElementById('newsEmail').value = '';
+      });
+    }
+
+    // helper to change brand
+    window.setBrand = function(name, tag){
+      if(name) document.getElementById('brandName').innerText = name;
+      if(tag) document.getElementById('brandTag').innerText = tag;
+    };
+  </script>
+</body>
+</html>
