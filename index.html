@@ -1,261 +1,222 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>HisobHub — Buxgalteriya Xizmatlari</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HalolHisob — Premium Buxgalteriya Xizmati</title>
 
 <style>
-    body {
-      margin: 0;
-      font-family: "Inter", sans-serif;
-      background: #000;
-      color: #fff;
-    }
+/* ======== GLOBAL STYLE ======== */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #000;
+  color: #fff;
+}
 
-    header {
-      background: linear-gradient(135deg, #000, #2b2b2b);
-      color: #d4af37;
-      padding: 35px;
-      text-align: center;
-      font-size: 34px;
-      font-weight: 700;
-      border-bottom: 2px solid #d4af37;
-    }
+.header {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #c9a227, #000);
+  color: #fff;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 3px solid #c9a227;
+}
 
-    .lang-switch {
-      text-align: center;
-      margin-top: 10px;
-    }
-    .lang-switch button {
-      background: none;
-      border: 1px solid #d4af37;
-      color: #d4af37;
-      padding: 8px 18px;
-      margin: 5px;
-      cursor: pointer;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-    .lang-switch button:hover {
-      background: #d4af37;
-      color: #000;
-    }
+/* Sections */
+.section {
+  margin: 25px auto;
+  max-width: 900px;
+  padding: 25px;
+  border-radius: 16px;
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.15);
+}
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-    }
+/* Title */
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #e6c563;
+  margin-top: 0;
+}
 
-    .section {
-      background: #111;
-      border: 1px solid #d4af37;
-      padding: 25px;
-      border-radius: 12px;
-      margin-bottom: 25px;
-    }
+/* Inputs */
+input, textarea {
+  width: 100%;
+  background: #111;
+  border: 1px solid #c9a227;
+  padding: 12px;
+  margin-top: 10px;
+  margin-bottom: 18px;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 8px;
+}
 
-    h2 {
-      color: #d4af37;
-      margin-top: 0;
-    }
+/* Button */
+button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #e6c563, #c89f1d);
+  border: none;
+  color: black;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+button:hover {
+  filter: brightness(1.15);
+}
 
-    a.button {
-      display: block;
-      text-align: center;
-      background: #d4af37;
-      color: #000;
-      padding: 14px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 18px;
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
+/* Language Switcher */
+.lang-box {
+  text-align: center;
+  margin-top: 15px;
+}
+.lang-btn {
+  background: none;
+  border: 1px solid #c9a227;
+  padding: 6px 15px;
+  color: #e6c563;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 5px;
+}
+.lang-btn:hover {
+  background: #c9a227;
+  color: #000;
+}
 
-    a.button:hover {
-      background: #b8942c;
-    }
-
-    /* Forma */
-    form input, form textarea {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 8px;
-      border: 1px solid #d4af37;
-      background: #000;
-      color: #fff;
-      font-size: 16px;
-    }
-
-    form button {
-      width: 100%;
-      background: #d4af37;
-      border: none;
-      padding: 14px;
-      margin-top: 10px;
-      border-radius: 8px;
-      font-size: 18px;
-      font-weight: 700;
-      cursor: pointer;
-      color: #000;
-    }
-
-    form button:hover {
-      background: #b8942c;
-    }
-
-    #status {
-      margin-top: 12px;
-      font-size: 16px;
-      text-align: center;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #d4af37;
-      font-size: 15px;
-      border-top: 1px solid #d4af37;
-      margin-top: 30px;
-    }
+/* Status Message */
+#status {
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
 </style>
 </head>
 
 <body>
 
-<header id="title">HisobHub — Buxgalteriya xizmatlari</header>
+<div class="header">HalolHisob — Premium Buxgalteriya Xizmati</div>
 
-<div class="lang-switch">
-  <button onclick="setLang('uz')">🇺🇿 O‘zbekcha</button>
-  <button onclick="setLang('ru')">🇷🇺 Русский</button>
+<!-- LANGUAGE SWITCH -->
+<div class="lang-box">
+  <button class="lang-btn" onclick="setLang('uz')">🇺🇿 O‘zbekcha</button>
+  <button class="lang-btn" onclick="setLang('ru')">🇷🇺 Русский</button>
 </div>
 
-<div class="container">
-
-  <div class="section">
-    <h2 id="about_title">Biz haqimizda</h2>
-    <p id="about_text">
-      HisobHub — professional buxgalteriya va soliq xizmatlari markazi.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2 id="services_title">Xizmatlar</h2>
-    <ul id="services_list">
-      <li>Buxgalteriya hisobini yuritish</li>
-      <li>Soliq hisobotlari</li>
-      <li>Konsalting</li>
-      <li>Kadrlar hisoboti</li>
-      <li>Bir martalik xizmatlar</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2 id="contact_title">Aloqa</h2>
-
-    <a class="button" href="tel:+998935680091">📞 Qo‘ng‘iroq qilish</a>
-    <a class="button" href="https://t.me/Qobuljon_91">📱 Telegram</a>
-    <a class="button" href="https://maps.app.goo.gl/8NmrqxpXMERuyqqZ7">📍 Manzil (Google Maps)</a>
-
-    <h2 style="margin-top:25px;">📨 Onlayn murojaat</h2>
-
-    <form id="contactForm">
-      <input id="name" type="text" placeholder="Ismingiz" required>
-      <input id="phone" type="text" placeholder="Telefon raqam" required>
-      <textarea id="message" placeholder="Xabar..." required></textarea>
-      <button type="submit">Yuborish</button>
-      <p id="status"></p>
-    </form>
-  </div>
-
+<!-- ABOUT -->
+<div class="section">
+  <h2 id="aboutTitle">Biz haqimizda</h2>
+  <p id="aboutText">
+    HalolHisob — ishonchli va qulay hisob-kitob, buxgalteriya va soliq xizmatlari markazi.
+  </p>
 </div>
 
-<footer>© 2025 HisobHub. Barcha huquqlar himoyalangan.</footer>
+<!-- FORM -->
+<div class="section">
+  <h2 id="formTitle">Bog‘lanish formasi</h2>
 
+  <form id="contactForm">
+    <label id="nameLabel">Ism:</label>
+    <input type="text" id="name" required>
+
+    <label id="phoneLabel">Telefon:</label>
+    <input type="text" id="phone" required>
+
+    <label id="msgLabel">Xabar:</label>
+    <textarea id="message" rows="4" required></textarea>
+
+    <button type="submit" id="sendBtn">Yuborish</button>
+
+    <div id="status"></div>
+  </form>
+</div>
+
+<!-- FOOTER -->
+<div class="section" style="text-align:center; font-size:14px;">
+  © 2025 HalolHisob — Premium xizmat
+</div>
 
 <script>
-/* --- 2 TIL --- */
-const langData = {
-  uz: {
-    title: "HisobHub — Buxgalteriya xizmatlari",
-    about_title: "Biz haqimizda",
-    about_text: "HisobHub — professional buxgalteriya va soliq xizmatlari markazi.",
-    services_title: "Xizmatlar",
-    services_list: `
-      <li>Buxgalteriya hisobini yuritish</li>
-      <li>Soliq hisobotlari</li>
-      <li>Konsalting</li>
-      <li>Kadrlar hisoboti</li>
-      <li>Bir martalik xizmatlar</li>
-    `,
-    contact_title: "Aloqa"
-  },
+/* ======================
+     LANGUAGE SYSTEM
+====================== */
 
+const lang = {
+  uz: {
+    aboutTitle: "Biz haqimizda",
+    aboutText: "HalolHisob — ishonchli va qulay hisob-kitob, buxgalteriya va soliq xizmatlari markazi.",
+    formTitle: "Bog‘lanish formasi",
+    nameLabel: "Ism:",
+    phoneLabel: "Telefon:",
+    msgLabel: "Xabar:",
+    sendBtn: "Yuborish"
+  },
   ru: {
-    title: "HisobHub — Бухгалтерские услуги",
-    about_title: "О нас",
-    about_text: "HisobHub — центр профессиональных бухгалтерских и налоговых услуг.",
-    services_title: "Услуги",
-    services_list: `
-      <li>Ведение бухгалтерии</li>
-      <li>Налоговая отчётность</li>
-      <li>Консалтинг</li>
-      <li>Кадровый учет</li>
-      <li>Разовые услуги</li>
-    `,
-    contact_title: "Контакты"
+    aboutTitle: "О нас",
+    aboutText: "HalolHisob — надёжный центр бухгалтерских и налоговых услуг.",
+    formTitle: "Форма связи",
+    nameLabel: "Имя:",
+    phoneLabel: "Телефон:",
+    msgLabel: "Сообщение:",
+    sendBtn: "Отправить"
   }
 };
 
-function setLang(l) {
-  document.getElementById("title").innerHTML = langData[l].title;
-  document.getElementById("about_title").innerHTML = langData[l].about_title;
-  document.getElementById("about_text").innerHTML = langData[l].about_text;
-  document.getElementById("services_title").innerHTML = langData[l].services_title;
-  document.getElementById("services_list").innerHTML = langData[l].services_list;
-  document.getElementById("contact_title").innerHTML = langData[l].contact_title;
+function setLang(code) {
+  document.getElementById("aboutTitle").innerText = lang[code].aboutTitle;
+  document.getElementById("aboutText").innerText = lang[code].aboutText;
+  document.getElementById("formTitle").innerText = lang[code].formTitle;
+  document.getElementById("nameLabel").innerText = lang[code].nameLabel;
+  document.getElementById("phoneLabel").innerText = lang[code].phoneLabel;
+  document.getElementById("msgLabel").innerText = lang[code].msgLabel;
+  document.getElementById("sendBtn").innerText = lang[code].sendBtn;
 }
 
+/* ======================
+  TELEGRAM BOT SETTINGS
+====================== */
 
-/* --- TELEGRAMGA YUBORISH --- */
+const BOT_TOKEN = "AAFw2hqQ5cgFuBanGgnFCchEL6opX3r_E74";  // siz bergan token
+const CHAT_ID = "-1003236510040";                        // kanal ID
 
-const BOT_TOKEN = "8510583908:AAEz5n3a-30lt9a0GxskLNt6t-sG7eEK72c";  
-const CHAT_ID = "5293724785";
+/* ======================
+   FORM SUBMIT HANDLER
+====================== */
 
-document.getElementById("contactForm").addEventListener("submit", async (e) => {
+document.getElementById("contactForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
   let name = document.getElementById("name").value;
   let phone = document.getElementById("phone").value;
   let message = document.getElementById("message").value;
+
   let status = document.getElementById("status");
+  status.style.color = "#e6c563";
+  status.innerText = "⏳ Yuborilmoqda...";
 
-  let text = `📨 Yangi murojaat:\n\n👤 Ism: ${name}\n📞 Tel: ${phone}\n✉️ Xabar: ${message}`;
-
-  status.innerHTML = "⏳ Yuborilmoqda...";
+  let text = `📩 Yangi murojaat:%0A%0A👤 Ism: ${name}%0A📞 Telefon: ${phone}%0A📝 Xabar: ${message}`;
 
   try {
-    const send = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: text,
-      })
-    });
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${text}`);
 
-    if (send.ok) {
-      status.innerHTML = "✅ Xabar yuborildi!";
-      document.getElementById("contactForm").reset();
-    } else {
-      status.innerHTML = "❌ Xatolik! Qayta urinib ko‘ring.";
-    }
+    status.style.color = "#4cff4c";
+    status.innerText = "✔️ Muvaffaqiyatli yuborildi!";
+    document.getElementById("contactForm").reset();
 
-  } catch (e) {
-    status.innerHTML = "❌ Server bilan ulanishda muammo!";
+  } catch (err) {
+    status.style.color = "red";
+    status.innerText = "❌ Xatolik! Keyinroq urinib ko‘ring.";
   }
 });
 </script>
