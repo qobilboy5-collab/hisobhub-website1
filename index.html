@@ -6,284 +6,256 @@
 <title>HisobHub — Buxgalteriya Xizmatlari</title>
 
 <style>
-  body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #000;
-    color: #ffd87a;
-  }
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: #000;
+      color: #fff;
+    }
 
-  header {
-    background: linear-gradient(90deg, #111, #222);
-    padding: 35px 20px;
-    text-align: center;
-    font-size: 32px;
-    font-weight: 700;
-    border-bottom: 2px solid #b88a2e;
-    color: #ffdd99;
-  }
+    header {
+      background: linear-gradient(135deg, #000, #2b2b2b);
+      color: #d4af37;
+      padding: 35px;
+      text-align: center;
+      font-size: 34px;
+      font-weight: 700;
+      border-bottom: 2px solid #d4af37;
+    }
 
-  /* Language Switch */
-  .lang-box{
-    position:absolute;
-    top:15px;
-    right:15px;
-  }
-  .lang-btn{
-    background:#b88a2e;
-    color:#000;
-    padding:6px 12px;
-    border-radius:6px;
-    cursor:pointer;
-    font-size:14px;
-    border:none;
-    font-weight:700;
-  }
+    .lang-switch {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .lang-switch button {
+      background: none;
+      border: 1px solid #d4af37;
+      color: #d4af37;
+      padding: 8px 18px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    .lang-switch button:hover {
+      background: #d4af37;
+      color: #000;
+    }
 
-  .container {
-    max-width:900px;
-    margin:auto;
-    padding:25px;
-  }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
 
-  .section {
-    background:#111;
-    padding:25px;
-    border-radius:18px;
-    margin-bottom:25px;
-    border:1px solid #b88a2e;
-    box-shadow:0 0 16px rgba(255,215,100,0.12);
-    transition:0.25s;
-  }
+    .section {
+      background: #111;
+      border: 1px solid #d4af37;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+    }
 
-  .section:hover {
-    transform:translateY(-4px);
-    box-shadow:0 0 22px rgba(255,215,100,0.25);
-  }
+    h2 {
+      color: #d4af37;
+      margin-top: 0;
+    }
 
-  h2 {
-    margin-top:0;
-    color:#ffdd99;
-    font-size:26px;
-    font-weight:700;
-  }
+    a.button {
+      display: block;
+      text-align: center;
+      background: #d4af37;
+      color: #000;
+      padding: 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
 
-  ul li {
-    font-size:18px;
-    margin-bottom:8px;
-  }
+    a.button:hover {
+      background: #b8942c;
+    }
 
-  /* Gold Buttons */
-  .button {
-    display:block;
-    text-align:center;
-    background:linear-gradient(90deg,#b88a2e,#e4c56a);
-    color:#000;
-    padding:14px;
-    border-radius:12px;
-    font-size:18px;
-    text-decoration:none;
-    font-weight:700;
-    margin-bottom:12px;
-    transition:0.25s;
-  }
-  .button:hover {
-    box-shadow:0 0 14px #ffdf88;
-    transform:translateY(-2px);
-  }
+    /* Forma */
+    form input, form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #d4af37;
+      background: #000;
+      color: #fff;
+      font-size: 16px;
+    }
 
-  /* CONTACT FORM */
-  .gold-form {
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-  }
+    form button {
+      width: 100%;
+      background: #d4af37;
+      border: none;
+      padding: 14px;
+      margin-top: 10px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #000;
+    }
 
-  .gold-form input,
-  .gold-form textarea {
-    background:#000;
-    color:#ffd77a;
-    border:1px solid #b98c2f;
-    padding:14px;
-    font-size:16px;
-    border-radius:10px;
-    outline:none;
-    transition:0.25s;
-  }
-  .gold-form input:focus,
-  .gold-form textarea:focus {
-    box-shadow:0 0 12px #d2a84b;
-    border-color:#ffcd62;
-  }
+    form button:hover {
+      background: #b8942c;
+    }
 
-  .gold-btn{
-    background:linear-gradient(90deg,#b88a2e,#e4c56a);
-    color:#000;
-    padding:14px;
-    font-size:18px;
-    border-radius:10px;
-    border:none;
-    cursor:pointer;
-    font-weight:700;
-    transition:0.25s;
-  }
-  .gold-btn:hover{
-    box-shadow:0 0 14px #ffdf88;
-    transform:translateY(-2px);
-  }
+    #status {
+      margin-top: 12px;
+      font-size: 16px;
+      text-align: center;
+    }
 
-  .status{
-    margin-top:10px;
-    color:#ffd77a;
-    font-size:16px;
-    min-height:20px;
-  }
-
-  .footer {
-    text-align:center;
-    padding:20px;
-    font-size:14px;
-    color:#777;
-  }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #d4af37;
+      font-size: 15px;
+      border-top: 1px solid #d4af37;
+      margin-top: 30px;
+    }
 </style>
-
 </head>
 
 <body>
 
-<div class="lang-box">
-  <button class="lang-btn" onclick="setLang('uz')">UZ</button>
-  <button class="lang-btn" onclick="setLang('ru')">RU</button>
-</div>
+<header id="title">HisobHub — Buxgalteriya xizmatlari</header>
 
-<header id="title">HisobHub — Buxgalteriya xizmatlari markazi</header>
+<div class="lang-switch">
+  <button onclick="setLang('uz')">🇺🇿 O‘zbekcha</button>
+  <button onclick="setLang('ru')">🇷🇺 Русский</button>
+</div>
 
 <div class="container">
 
-  <!-- Biz haqimizda -->
   <div class="section">
-    <h2 class="t1">Biz haqimizda</h2>
-    <p class="p1">
-      HisobHub — professional buxgalteriya, soliq va konsalting xizmatlari ko‘rsatadigan zamonaviy markaz.
+    <h2 id="about_title">Biz haqimizda</h2>
+    <p id="about_text">
+      HisobHub — professional buxgalteriya va soliq xizmatlari markazi.
     </p>
   </div>
 
-  <!-- Xizmatlar -->
   <div class="section">
-    <h2 class="t2">Xizmatlar</h2>
-    <ul id="serviceList"></ul>
+    <h2 id="services_title">Xizmatlar</h2>
+    <ul id="services_list">
+      <li>Buxgalteriya hisobini yuritish</li>
+      <li>Soliq hisobotlari</li>
+      <li>Konsalting</li>
+      <li>Kadrlar hisoboti</li>
+      <li>Bir martalik xizmatlar</li>
+    </ul>
   </div>
 
-  <!-- Contact -->
   <div class="section">
-    <h2 class="t3">Aloqa</h2>
+    <h2 id="contact_title">Aloqa</h2>
 
-    <a class="button" id="callBtn" href="tel:+998935680091">📞 Qo‘ng‘iroq qilish</a>
-    <a class="button" id="telegramBtn" href="https://t.me/Qobuljon_91">📱 Telegram</a>
-    <a class="button" id="mapBtn" href="https://maps.app.goo.gl/8NmrqxpXMERuyqqZ7">📍 Manzil</a>
+    <a class="button" href="tel:+998935680091">📞 Qo‘ng‘iroq qilish</a>
+    <a class="button" href="https://t.me/Qobuljon_91">📱 Telegram</a>
+    <a class="button" href="https://maps.app.goo.gl/8NmrqxpXMERuyqqZ7">📍 Manzil (Google Maps)</a>
 
-    <h2 style="margin-top:25px;">Onlayn murojaat</h2>
+    <h2 style="margin-top:25px;">📨 Onlayn murojaat</h2>
 
-    <form id="contactForm" class="gold-form">
-      <input type="text" id="name" placeholder="Ismingiz" required>
-      <input type="text" id="phone" placeholder="Telefon raqamingiz" required>
-      <input type="email" id="email" placeholder="Email (ixtiyoriy)">
-      <textarea id="message" placeholder="Xabaringiz..." required></textarea>
-      <button type="submit" class="gold-btn" id="sendBtn">Yuborish</button>
-      <p id="formStatus" class="status"></p>
+    <form id="contactForm">
+      <input id="name" type="text" placeholder="Ismingiz" required>
+      <input id="phone" type="text" placeholder="Telefon raqam" required>
+      <textarea id="message" placeholder="Xabar..." required></textarea>
+      <button type="submit">Yuborish</button>
+      <p id="status"></p>
     </form>
   </div>
 
 </div>
 
-<div class="footer">© 2025 HisobHub. Barcha huquqlar himoyalangan.</div>
+<footer>© 2025 HisobHub. Barcha huquqlar himoyalangan.</footer>
 
-<!-- LANGUAGE + TELEGRAM SCRIPT -->
+
 <script>
-const data = {
+/* --- 2 TIL --- */
+const langData = {
   uz: {
-    title: "HisobHub — Buxgalteriya xizmatlari markazi",
-    about: "HisobHub — professional buxgalteriya, soliq va konsalting xizmatlari ko‘rsatadigan zamonaviy markaz.",
-    services: [
-      "Buxgalteriya hisobini yuritish",
-      "Soliq hisobotlarini topshirish",
-      "Kadrlar hisobini yuritish",
-      "Bir martalik hisobotlar",
-      "Konsalting xizmatlari"
-    ],
-    call: "📞 Qo‘ng‘iroq qilish",
-    tg: "📱 Telegram",
-    map: "📍 Manzil",
-    send: "Yuborish"
+    title: "HisobHub — Buxgalteriya xizmatlari",
+    about_title: "Biz haqimizda",
+    about_text: "HisobHub — professional buxgalteriya va soliq xizmatlari markazi.",
+    services_title: "Xizmatlar",
+    services_list: `
+      <li>Buxgalteriya hisobini yuritish</li>
+      <li>Soliq hisobotlari</li>
+      <li>Konsalting</li>
+      <li>Kadrlar hisoboti</li>
+      <li>Bir martalik xizmatlar</li>
+    `,
+    contact_title: "Aloqa"
   },
 
   ru: {
-    title: "HisobHub — Центр бухгалтерских услуг",
-    about: "HisobHub — современный центр, предоставляющий бухгалтерские, налоговые и консалтинговые услуги.",
-    services: [
-      "Ведение бухгалтерии",
-      "Подготовка налоговых отчётов",
-      "Кадровый учёт",
-      "Разовые отчёты",
-      "Консалтинговые услуги"
-    ],
-    call: "📞 Позвонить",
-    tg: "📱 Telegram",
-    map: "📍 Адрес",
-    send: "Отправить"
+    title: "HisobHub — Бухгалтерские услуги",
+    about_title: "О нас",
+    about_text: "HisobHub — центр профессиональных бухгалтерских и налоговых услуг.",
+    services_title: "Услуги",
+    services_list: `
+      <li>Ведение бухгалтерии</li>
+      <li>Налоговая отчётность</li>
+      <li>Консалтинг</li>
+      <li>Кадровый учет</li>
+      <li>Разовые услуги</li>
+    `,
+    contact_title: "Контакты"
   }
 };
 
-function setLang(lang){
-  document.getElementById("title").innerText = data[lang].title;
-  document.querySelector(".p1").innerText = data[lang].about;
-
-  let list = "";
-  data[lang].services.forEach(s => { list += `<li>${s}</li>`; });
-  document.getElementById("serviceList").innerHTML = list;
-
-  document.getElementById("callBtn").innerText = data[lang].call;
-  document.getElementById("telegramBtn").innerText = data[lang].tg;
-  document.getElementById("mapBtn").innerText = data[lang].map;
-  document.getElementById("sendBtn").innerText = data[lang].send;
+function setLang(l) {
+  document.getElementById("title").innerHTML = langData[l].title;
+  document.getElementById("about_title").innerHTML = langData[l].about_title;
+  document.getElementById("about_text").innerHTML = langData[l].about_text;
+  document.getElementById("services_title").innerHTML = langData[l].services_title;
+  document.getElementById("services_list").innerHTML = langData[l].services_list;
+  document.getElementById("contact_title").innerHTML = langData[l].contact_title;
 }
 
-setLang("uz"); // Default til
 
-/* TELEGRAM FORM */
-const BOT_TOKEN = "YOUR_BOT_TOKEN";
-const CHAT_ID = "YOUR_CHAT_ID";
+/* --- TELEGRAMGA YUBORISH --- */
 
-document.getElementById("contactForm").addEventListener("submit", async function(e){
+const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";  
+const CHAT_ID = "YOUR_CHAT_ID_HERE";
+
+document.getElementById("contactForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const email = document.getElementById("email").value;
-  const message = document.getElementById("message").value;
-  const status = document.getElementById("formStatus");
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let message = document.getElementById("message").value;
+  let status = document.getElementById("status");
+
+  let text = `📨 Yangi murojaat:\n\n👤 Ism: ${name}\n📞 Tel: ${phone}\n✉️ Xabar: ${message}`;
 
   status.innerHTML = "⏳ Yuborilmoqda...";
 
-  const text =
-    `📩 Yangi murojaat\n\n` +
-    `👤 Ism: ${name}\n` +
-    `📞 Telefon: ${phone}\n` +
-    `📧 Email: ${email}\n` +
-    `💬 Xabar: ${message}`;
-
   try {
-    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({chat_id:CHAT_ID, text:text})
+    const send = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: text,
+      })
     });
 
-    status.innerHTML = "✅ Xabar yuborildi!";
-    document.getElementById("contactForm").reset();
+    if (send.ok) {
+      status.innerHTML = "✅ Xabar yuborildi!";
+      document.getElementById("contactForm").reset();
+    } else {
+      status.innerHTML = "❌ Xatolik! Qayta urinib ko‘ring.";
+    }
 
-  } catch(err){
-    status.innerHTML = "❌ Xatolik! Keyinroq urinib ko‘ring.";
+  } catch (e) {
+    status.innerHTML = "❌ Server bilan ulanishda muammo!";
   }
 });
 </script>
