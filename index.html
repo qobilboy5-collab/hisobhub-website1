@@ -517,55 +517,91 @@ applyLang(currentLang);
 /*const BOT_TOKEN = "AAFw2hqQ5cgFuBanGgnFCchEL6opX3r_E74";
 const CHAT_ID = "-1003236510040";*/
 
-// ==== CONFIG ====
-const BOT_TOKEN = "YOUR_BOT_TOKEN";    // <-- shu yerga token qo‘y
-const CHAT_ID = "-100XXXXXXXXXX";      // <-- shu yerga chat ID qo‘y
+/* ======================
+   TELEGRAM CONTACT FORM (Tuzatilgan, GitHub Pages friendly)
+   NOTE: Exposing BOT_TOKEN in frontend is insecure.
+   Recommended: use serverless (Vercel/Netlify) and keep token in env.
+   ====================== */
 
-// =================
+// --- CONFIG (Siz shu yerga token & chat id qo'yasiz) ---
+const BOT_TOKEN = "AAFw2hqQ5cgFuBanGgnFCchEL6opX3r_E74"; // <-- vaqtincha shu yerga qo'yish mumkin
+const CHAT_ID = "-1003236510040"; // <-- yoki user/chat id
+// ------------------------------------------------------
 
-contactForm.addEventListener("submit", async function (ev) {
-    ev.preventDefault();
+const contactForm = document.getElementById('contactForm');
+const statusEl = document.getElementById('cf_status');
 
-    const statusEl = document.getElementById("contact-form-status");
-    const name = document.getElementById("name");
-    const phone = document.getElementById("phone");
-    const text = document.getElementById("text");
-    const service = document.getElementById("service-select");
-    const currentLang = document.documentElement.lang;
-    
-    const msgText =
-        `📌 *Yangi buyurtma!* \n\n`
-        + `👤 Ism: *${name.value.trim()}*\n`
-        + `📞 Telefon: *${phone.value.trim()}*\n`
-        + `📦 Xizmat: *${service.value.trim()}*\n`
-        + `📝 Izoh: ${text.value.trim()}\n`
-        + `🌐 Til: ${currentLang}\n\n`
-        + `⏱ Vaqt: ${new Date().toLocaleString()}`;
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    statusEl.style.color = '#dfdf27';
-    statusEl.innerText = (currentLang === 'ru') ? i18n.ru.cf_sending : i18n.uz.cf_sending;
+    const name = document.getElementById('cf_name').value.trim();
+    const phone = document.getElementById('cf_phone').value.trim();
+    const email = document.getElementById('cf_email').value.trim();
+    const message = document.getElementById('cf_message').value.trim();
 
-    // URL ni tayyorlaymiz (faqat GET — CORS muammosi yo‘q)
-    const telegramURL =
-        `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}` +
-        `&parse_mode=Markdown&text=${encodeURIComponent(msgText)}`;
+    if (!name || !phone || !message) {
+      statusEl.style.color = '#ffb3b3';
+      statusEl.innerText = (currentLang === 'ru') ? i18n.ru.cf_error : 'Iltimos barcha majburiy maydonlarni to‘ldiring.';
+      return;
+    }
+
+    statusEl.style.color = 'var(--gold)';
+    statusEl.innerText = '⏳ ' + ((currentLang === 'ru') ? 'Отправка...' : 'Yuborilmoqda...');
+
+    // tayyor xabar (Markdown mos)
+    const plainMsg =
+      `📨 *Yangi murojaat*\n\n` +
+      `*Ism:* ${name}\n` +
+      `*Telefon:* ${phone}\n` +
+      `*Email:* ${email || '—'}\n` +
+      `*Xabar:* ${message}`;
+
+    const encodedText = encodeURIComponent(plainMsg);
+
+    // --- GitHub Pages uchun ishlaydigan GET URL ---
+    const telegramURL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&parse_mode=Markdown&text=${encodedText}`;
 
     try {
-        const response = await fetch(telegramURL);
+      // GET so'rov: CORS ko'pincha GET bilan ishlaydi (POST JSON bilan muammo bo'ladi)
+      const res = await fetch(telegramURL);
+      // debug
+      try { console.log('Telegram response status:', res.status); } catch(e){}
 
-        if (!response.ok) throw new Error("Telegram: response not OK");
-
+      if (res.ok) {
+        // muvaffaqiyat
         statusEl.style.color = '#4cff4c';
         statusEl.innerText = (currentLang === 'ru') ? i18n.ru.cf_success : i18n.uz.cf_success;
-
         contactForm.reset();
-    } catch (error) {
-        console.error("Telegram API error:", error);
+        return;
+      } else {
+        // res.ok emas — konsolga chiqaring va fallbackga o‘ting
+        let j = null;
+        try { j = await res.json(); console.warn('Telegram API responded:', j); } catch(e){}
+        throw new Error('Telegram returned non-OK status');
+      }
+    } catch (err) {
+      console.warn('Telegram API failed (GET):', err);
 
-        statusEl.style.color = '#ff4c4c';
-        statusEl.innerText = (currentLang === 'ru') ? i18n.ru.cf_fail : i18n.uz.cf_fail;
+      // oxirgi fallback: mailto (brauzerni ochadi)
+      try {
+        const subject = encodeURIComponent((currentLang === 'ru') ? 'HalolHisob: Новая заявка - ' + name : 'HalolHisob: Yangi murojaat - ' + name);
+        const body = encodeURIComponent(`Ism: ${name}\nTelefon: ${phone}\nEmail: ${email}\n\nXabar:\n${message}`);
+        window.location.href = `mailto:buxgalterconsalt@gmail.com?subject=${subject}&body=${body}`;
+
+        statusEl.style.color = '#e6c563';
+        statusEl.innerText = (currentLang === 'ru') ? i18n.ru.cf_error : '📧 Email mijozingiz ochilmoqda (fallback).';
+        return;
+      } catch (mailErr) {
+        console.error('Mail fallback failed:', mailErr);
+        statusEl.style.color = 'red';
+        statusEl.innerText = (currentLang === 'ru') ? i18n.ru.cf_error : i18n.uz.cf_error;
+        return;
+      }
     }
-});
+  });
+}
+
 
 
 /* ======================
