@@ -1,21 +1,21 @@
+import TelegramBot from "node-telegram-bot-api";
+
 export default async function handler(req, res) {
+  const token = process.env.BOT_TOKEN;
+  const bot = new TelegramBot(token);
+
   if (req.method === "POST") {
-    const token = process.env.BOT_TOKEN;
-    const chatId = process.env.CHAT_ID;
+    const update = req.body;
 
-    const message = req.body?.message?.text || "Xabar olinmadi";
+    if (update.message) {
+      const chatId = update.message.chat.id;
+      const text = update.message.text;
 
-    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: `Yangi xabar: ${message}`
-      }),
-    });
+      await bot.sendMessage(chatId, "Bot ishladi! Siz yozdingiz: " + text);
+    }
 
-    return res.status(200).json({ ok: true });
+    return res.status(200).send("ok");
   }
 
-  res.status(200).send("Bot ishlayapti");
+  return res.status(200).json({ status: "webhook active" });
 }
