@@ -57,19 +57,18 @@ nav.main a:hover{
 
 /* Buttons — premium neon gradient */
 /* BUTTON SIZING FIX — normal, premium, neon */
-.btn,
-.btn-primary,
-.btn-outline,
-.cta,
-.form-btn {
-  padding: 10px 18px;     /* oldingi juda katta edi -> NORMAL */
-  border-radius: 10px;    /* yumaloqligi saqlansin */
-  font-size: 15px;        /* juda kattalashishning oldini oladi */
-  font-weight: 700;       /* 900 emas -> juda qalin bo'lib ketmasin */
-  cursor: pointer;
-  transition: 0.25s ease;
+button, .btn, .btn-primary, .form-btn, .cta {
+  padding: 8px 16px;             /* kichikroq ichki bo‘shliq */
+  font-size: 14px;               /* matn hajmini biroz kichraytirish */
+  min-width: auto;               /* oldin belgilangan katta min-width bo‘lsa olib tashlash */
+  width: fit-content;            /* tugma matniga mos o‘lchamga kelsin */  
+  line-height: 1.2;               /* balandlikni nazorat qilish */
+  box-sizing: border-box;         /* padding + border ichiga olinadi */
 }
-
+.btn-outline {
+  padding: 8px 14px;
+  font-size: 14px;
+}
 /* PREMIUM NEON GRADIENT */
 .btn-primary,
 .cta,
