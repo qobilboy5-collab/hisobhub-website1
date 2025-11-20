@@ -56,33 +56,50 @@ nav.main a:hover{
 }
 
 /* Buttons — premium neon gradient */
+/* BUTTON SIZING FIX — normal, premium, neon */
+.btn,
+.btn-primary,
+.btn-outline,
+.cta,
+.form-btn {
+  padding: 10px 18px;     /* oldingi juda katta edi -> NORMAL */
+  border-radius: 10px;    /* yumaloqligi saqlansin */
+  font-size: 15px;        /* juda kattalashishning oldini oladi */
+  font-weight: 700;       /* 900 emas -> juda qalin bo'lib ketmasin */
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+/* PREMIUM NEON GRADIENT */
 .btn-primary,
 .cta,
-.form-btn{
-  background:linear-gradient(90deg, var(--gold), var(--neon-pink), var(--neon-purple));
-  color:#000;
-  font-weight:900;
-  border:none;
-  box-shadow:0 0 14px #FFB30055;
+.form-btn {
+  background: linear-gradient(90deg, var(--gold), var(--neon-pink), var(--neon-purple));
+  color: #000;
+  border: none;
+  box-shadow: 0 0 12px #FF4D8844;
 }
+
+/* HOVER — Lekin kattalashmasin */
 .btn-primary:hover,
 .cta:hover,
-.form-btn:hover{
-  box-shadow:0 0 22px #FF4D8899;
-  transform:translateY(-3px);
+.form-btn:hover {
+  box-shadow: 0 0 20px #FF4D8899;
+  transform: translateY(-2px);
 }
 
-/* Outline button */
-.btn-outline{
-  border:1px solid var(--gold);
-  color:var(--gold);
-}
-.btn-outline:hover{
-  background:var(--gold);
-  color:#000;
-  box-shadow:0 0 18px #FFD54F99;
+/* OUTLINE BUTTON */
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
 }
 
+.btn-outline:hover {
+  background: var(--gold);
+  color: #000;
+  box-shadow: 0 0 18px #FFD54F99;
+}
 /* Cards */
 .card{
   background:rgba(255,255,255,0.04);
