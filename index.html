@@ -355,9 +355,139 @@ document.addEventListener('DOMContentLoaded', ()=> {
    Basic i18n (UZ/RU)
    ====================== */
 const i18n = {
-  uz:{ /* ... short for brevity; content already inline in HTML above ... */ },
-  ru:{ /* ... */ }
+  uz: {
+    nav_about: "Biz haqimizda",
+    nav_services: "Xizmatlar",
+    nav_pricing: "Narxlar",
+    nav_team: "Jamoa",
+    nav_contact: "Aloqa",
+    nav_map: "Filiallar",
+
+    cta_quote: "Bepul maslahat",
+    hero_kicker: "Premium xizmat",
+    heroTitle: "Buxgalteriya va soliq xizmatlari — HalolHisob",
+    heroText: "Hisob-kitoblaringiz ishonchli qo‘llarda — soliq, buxgalteriya va kadrlar bo‘yicha to‘liq servis.",
+    cta_consult: "Bepul maslahat",
+    cta_services: "Xizmatlarimiz",
+
+    aboutH: "Biz haqimizda",
+    aboutP: "HalolHisob — korxonalar va tadbirkorlar uchun premium buxgalteriya, soliq va konsalting xizmatlarini taqdim qiladi.",
+
+    servicesH: "Xizmatlar",
+    svc1_h: "Buxgalteriya hisobini yuritish",
+    svc1_p: "Doimiy hisob-kitob, menyu tahlil va hisobotlar.",
+    svc2_h: "Soliq hisobotlari",
+    svc2_p: "Soliq rejalashtirish va hisobotlarni topshirish.",
+    svc3_h: "Konsalting",
+    svc3_p: "Moliyaviy va strategik maslahatlar.",
+    svc4_h: "Kadrlar hisobi",
+    svc4_p: "Xodimlar hujjatlari va boshqaruvi.",
+
+    pricingH: "Narxlar",
+    plan_basic: "BASIC",
+    plan_basic_1: "Asosiy hisob-kitob",
+    plan_basic_2: "Yillik hisobot",
+    plan_standard: "STANDARD",
+    plan_std_1: "Barcha BASIC funksiyalari",
+    plan_std_2: "Soliq maslahatlari",
+    plan_premium: "PREMIUM",
+    plan_prem_1: "Barcha funksiya mavjud",
+    plan_prem_2: "Shaxsiy konsalting",
+
+    teamH: "Jamoa",
+    member1_name: "Aziz",
+    member1_role: "Bosh buxgalter",
+    member2_name: "Gulbahor",
+    member2_role: "Soliq mutaxassisi",
+    member3_name: "Javlon",
+    member3_role: "Kadrlar bo‘limi",
+
+    testimonialsH: "Mijozlar fikri",
+    test1_text: "“Juda professional xizmat, hamma hujjatlar joyida.”",
+    test1_author: "— Kamol",
+    test2_text: "“Soliq bo‘yicha aniq maslahatlar berdilar.”",
+    test2_author: "— Nilufar",
+    test3_text: "“Ish uslubi juda tartibli va tez.”",
+    test3_author: "— Sardor",
+
+    contactH: "Aloqa",
+    formH: "Bizga yozing",
+    sendBtn: "Yuborish",
+    fallback_note: "* Agar Telegram ishlamasa, email ochiladi.",
+    mapH: "Xarita",
+    worktime: "Ish vaqti: Dush–Shan 09:00–18:00",
+
+    cf_success: "✔️ Muvaffaqiyatli yuborildi!",
+    cf_error: "❌ Xatolik! Qayta urinib ko‘ring."
+  },
+
+  ru: {
+    nav_about: "О нас",
+    nav_services: "Услуги",
+    nav_pricing: "Цены",
+    nav_team: "Команда",
+    nav_contact: "Контакты",
+    nav_map: "Филиалы",
+
+    cta_quote: "Бесплатная консультация",
+    hero_kicker: "Премиум услуги",
+    heroTitle: "Бухгалтерские и налоговые услуги — HalolHisob",
+    heroText: "Ваши расчёты в надёжных руках — бухгалтерия, налоги и кадры под ключ.",
+    cta_consult: "Получить консультацию",
+    cta_services: "Наши услуги",
+
+    aboutH: "О нас",
+    aboutP: "HalolHisob предоставляет премиальные бухгалтерские, налоговые и консалтинговые услуги.",
+
+    servicesH: "Услуги",
+    svc1_h: "Ведение бухгалтерии",
+    svc1_p: "Постоянный учёт, анализ и отчётность.",
+    svc2_h: "Налоговая отчётность",
+    svc2_p: "Планирование налогов и подача отчётов.",
+    svc3_h: "Консалтинг",
+    svc3_p: "Финансовые и стратегические консультации.",
+    svc4_h: "Кадровый учёт",
+    svc4_p: "Документы и управление персоналом.",
+
+    pricingH: "Цены",
+    plan_basic: "BASIC",
+    plan_basic_1: "Базовый учёт",
+    plan_basic_2: "Годовой отчёт",
+    plan_standard: "STANDARD",
+    plan_std_1: "Все функции BASIC",
+    plan_std_2: "Налоговые консультации",
+    plan_premium: "PREMIUM",
+    plan_prem_1: "Все функции включены",
+    plan_prem_2: "Персональный консультант",
+
+    teamH: "Команда",
+    member1_name: "Азиз",
+    member1_role: "Главный бухгалтер",
+    member2_name: "Гульбахор",
+    member2_role: "Налоговый эксперт",
+    member3_name: "Джавлон",
+    member3_role: "Отдел кадров",
+
+    testimonialsH: "Отзывы клиентов",
+    test1_text: "“Очень профессионально, все документы в порядке.”",
+    test1_author: "— Камол",
+    test2_text: "“Дали точные и полезные налоговые советы.”",
+    test2_author: "— Нилуфар",
+    test3_text: "“Работа организована и оперативна.”",
+    test3_author: "— Сардор",
+
+    contactH: "Контакты",
+    formH: "Свяжитесь с нами",
+    sendBtn: "Отправить",
+    fallback_note: "* Если Telegram недоступен, откроется почта.",
+    mapH: "Карта",
+    worktime: "Рабочие часы: Пн–Сб 09:00–18:00",
+
+    cf_success: "✔️ Успешно отправлено!",
+    cf_error: "❌ Ошибка! Попробуйте позже."
+  }
 };
+
 let currentLang = 'uz';
 function applyLang(code){
   currentLang = code;
