@@ -554,7 +554,7 @@ if(contactForm){
         return;
       } else {
         // fallback to GET
-        const r2 = await fetch(`https://api.telegram.org/bot${8510583908:AAFw2hqQ5cgFuBanGgnFCchEL6opX3r_E74}/sendMessage?chat_id=${-1003236510040}&text=${encodeURIComponent(decodeURIComponent(msgText))}`);
+        const r2 = await fetch(`https://api.telegram.org/bot${AAFw2hqQ5cgFuBanGgnFCchEL6opX3r_E74}/sendMessage?chat_id=${-1003236510040}&text=${encodeURIComponent(decodeURIComponent(msgText))}`);
         if(r2.ok){
           statusEl.style.color = '#4cff4c';
           statusEl.innerText = (currentLang==='ru') ? i18n.ru.cf_success : i18n.uz.cf_success;
