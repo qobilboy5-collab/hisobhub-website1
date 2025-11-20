@@ -489,6 +489,62 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
   });
 });
+  /* ======================= TELEGRAM FORM WORKING ======================= */
+const BOT_TOKEN = "8510583908:AAHeWTAHaTESJhN9ZfNjqkbkqo5uT5MrzTs_E74";
+const CHAT_ID = "-1003236510040";
+
+document.getElementById("contactForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("cf_name").value.trim();
+    const phone = document.getElementById("cf_phone").value.trim();
+    const email = document.getElementById("cf_email").value.trim();
+    const message = document.getElementById("cf_message").value.trim();
+    const status = document.getElementById("cf_status");
+
+    if (!name || !phone || !message) {
+        status.style.color = "red";
+        status.innerText = "❗ Majburiy maydonlar toldirilmagan!";
+        return;
+    }
+
+    status.style.color = "var(--gold)";
+    status.innerText = "⏳ Yuborilmoqda...";
+
+    const text =
+        `📨 *Yangi murojaat:*\n\n` +
+        `👤 *Ism:* ${name}\n` +
+        `📞 *Telefon:* ${phone}\n` +
+        `📧 *Email:* ${email || "—"}\n` +
+        `💬 *Xabar:* ${message}`;
+
+    try {
+        const send = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: text,
+                parse_mode: "Markdown"
+            })
+        });
+
+        if (send.ok) {
+            status.style.color = "#48ff48";
+            status.innerText = "✔️ Yuborildi!";
+            document.getElementById("contactForm").reset();
+        } else {
+            throw new Error("Telegram returned error");
+        }
+    } catch (err) {
+        console.error(err);
+        status.style.color = "yellow";
+        status.innerText = "📧 Telegram ishlamadi, email ochilmoqda...";
+
+        // fallback
+        window.location.href = `mailto:buxgalterconsalt@gmail.com?subject=Yangi murojaat: ${name}&body=${text}`;
+    }
+});
 </script>
 
 </body>
