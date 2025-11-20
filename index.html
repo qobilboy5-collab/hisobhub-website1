@@ -617,6 +617,29 @@ if (contactForm) {
 })();
 
 </script>
+<form id="contactForm">
+  <input type="text" id="name" placeholder="Ismingiz" required />
+  <input type="text" id="phone" placeholder="Telefon" required />
+  <textarea id="message" placeholder="Xabar" required></textarea>
+  <button type="submit">Yuborish</button>
+</form>
 
+<script>
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const message = document.getElementById("message").value;
+
+  await fetch("https://hisobhub-website12.vercel.app/api/sendForm", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, phone, message }),
+  });
+
+  alert("Xabaringiz yuborildi!");
+});
+</script>
 </body>
 </html>
