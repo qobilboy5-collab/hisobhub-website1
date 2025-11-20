@@ -364,135 +364,6 @@ input:focus,textarea:focus{
 
 <!-- Scripts: i18n, form handling (POST to Vercel), UX -->
 <script>
-/* =========== Utilities =========== */
-document.addEventListener('DOMContentLoaded', () => {
-  // hide loader
-  const loader = document.getElementById('loader');
-  if(loader) setTimeout(()=> { loader.style.opacity='0'; setTimeout(()=>loader.remove(),450); }, 450);
-
-  // reveal animations
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
-  },{threshold:0.12});
-  document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
-
-  // set year
-  document.getElementById('year').innerText = new Date().getFullYear();
-});
-
-/* =========== i18n (UZ / RU) =========== */
-const i18n = {
-  uz:{ nav_about:"Biz haqimizda", nav_services:"Xizmatlar", nav_pricing:"Narxlar", nav_team:"Jamoa", nav_contact:"Aloqa", nav_map:"Filiallar", cta_consult:"Bepul maslahat", hero_kicker:"Premium xizmat", heroTitle:"Buxgalteriya va soliq xizmatlari — HalolHisob", heroText:"Hisob-kitoblaringiz ishonchli qo‘llarda — soliq, buxgalteriya va kadrlar bo‘yicha to‘liq servis.", aboutH:"Biz haqimizda", aboutP:"HalolHisob — korxona va tadbirkorlar uchun premium sinfdagi buxgalteriya, soliq va konsalting xizmatlarini taqdim etadi. Biz halol, shaffof va professional ishlaymiz.", servicesH:"Xizmatlar", svc1_h:"Buxgalteriya hisobini yuritish", svc1_p:"Doimiy hisob-kitob, menyu tahlil va hisobotlar.", svc2_h:"Soliq hisobotlari", svc2_p:"Soliq rejalashtirish va hisobotlarni topshirish.", svc3_h:"Konsalting", svc3_p:"Moliyaviy va strategik maslahatlar.", svc4_h:"Kadrlar hisobi", svc4_p:"Xodimlar hisobini yuritish va hujjatlar.", pricingH:"Narxlar", plan_basic:"BASIC", plan_basic_1:"Asosiy hisob-kitob", plan_basic_2:"Yillik hisobot", plan_standard:"STANDARD", plan_std_1:"Barcha BASIC", plan_std_2:"Soliq maslahatlari", plan_premium:"PREMIUM", plan_prem_1:"Barcha funksiya", plan_prem_2:"Shaxsiy konsultant", teamH:"Jamoa", member1_name:"Aziz", member1_role:"Bosh buxgalter", member2_name:"Gulbahor", member2_role:"Soliq mutaxassisi", member3_name:"Javlon", member3_role:"Kadrlar bo‘limi", testimonialsH:"Mijozlar fikri", test1_text:"“Juda professional xizmat, hamma hujjatlar joyida.”", test1_author:"— Kamol", test2_text:"“Soliq bo‘yicha aniq maslahatlar berdilar.”", test2_author:"— Nilufar", test3_text:"“Ish uslubi juda tartibli va tez.”", test3_author:"— Sardor", contactH:"Aloqa", formH:"Bizga yozing", sendBtn:"Yuborish", fallback_note:"* Agar Telegram orqali yuborish muvaffaqiyatsiz bo‘lsa, email mijozingiz ochiladi (fallback).", mapH:"Xarita", worktime:"Ish vaqti: Dush–Shan 09:00–18:00", cf_success:"✔️ Muvaffaqiyatli yuborildi! Tez orada javob beramiz.", cf_error:"❌ Xatolik! Iltimos keyinroq urinib ko‘ring." },
-  ru:{ nav_about:"О нас", nav_services:"Услуги", nav_pricing:"Цены", nav_team:"Команда", nav_contact:"Контакты", nav_map:"Филиалы", cta_consult:"Бесплатная консультация", hero_kicker:"Премиум услуги", heroTitle:"Бухгалтерские и налоговые услуги — HalolHisob", heroText:"Ваши расчёты в надёжных руках — бухгалтерия, налоги и кадры под ключ.", aboutH:"О нас", aboutP:"HalolHisob предлагает премиальные бухгалтерские, налоговые и консалтинговые услуги для компаний и предпринимателей. Мы честны, прозрачны и профессиональны.", servicesH:"Услуги", svc1_h:"Ведение бухгалтерии", svc1_p:"Постоянный учёт, анализ и отчётность.", svc2_h:"Налоговая отчётность", svc2_p:"Планирование налогов и подача отчётов.", svc3_h:"Консалтинг", svc3_p:"Финансовые и стратегические консультации.", svc4_h:"Кадровый учёт", svc4_p:"Ведение сотрудников и документации.", pricingH:"Цены", plan_basic:"BASIC", plan_basic_1:"Базовый учёт", plan_basic_2:"Годовой отчёт", plan_standard:"STANDARD", plan_std_1:"Все функции BASIC", plan_std_2:"Налоговые консультации", plan_premium:"PREMIUM", plan_prem_1:"Все функции", plan_prem_2:"Персональный консультант", teamH:"Команда", member1_name:"Азиз", member1_role:"Гл. бухгалтер", member2_name:"Гульбахор", member2_role:"Налоговый эксперт", member3_name:"Джавлон", member3_role:"Кадровый отдел", testimonialsH:"Отзывы клиентов", test1_text:"“Очень профессионально, все документы в порядке.”", test1_author:"— Камол", test2_text:"“Дали точные и полезные налоговые советы.”", test2_author:"— Нилуфар", test3_text:"“Работа организована и оперативна.”", test3_author:"— Сардор", contactH:"Контакты", formH:"Свяжитесь с нами", sendBtn:"Отправить", fallback_note:"* Если отправка в Telegram не удалась, откроется ваш почтовый клиент (fallback).", mapH:"Карта", worktime:"Рабочие часы: Пн–Сб 09:00–18:00", cf_success:"✔️ Успешно отправлено! Мы свяжемся с вами в ближайшее время.", cf_error:"❌ Ошибка! Пожалуйста, попробуйте позже." }
-};
-
-let currentLang = 'uz';
-
-function applyLang(code){
-  currentLang = code;
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const key = el.getAttribute('data-i18n');
-    if(i18n[code] && i18n[code][key] !== undefined) el.innerText = i18n[code][key];
-  });
-  // placeholders
-  document.querySelectorAll('[data-placeholder-uz]').forEach(el=>{
-    const p = el.getAttribute(`data-placeholder-${code}`);
-    if(p) el.placeholder = p;
-  });
-  const statusEl = document.getElementById('cf_status');
-  if(statusEl) statusEl.innerText = '';
-}
-
-// wire language buttons
-document.querySelectorAll('.lang-btn').forEach(b=>{
-  b.addEventListener('click', ()=> {
-    document.querySelectorAll('.lang-btn').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    const code = b.dataset.lang || (b.innerText.includes('🇷')? 'ru' : 'uz');
-    applyLang(code);
-  });
-});
-// default
-applyLang(currentLang);
-
-/* =========== Contact form (POST to Vercel serverless) =========== */
-/*
-  Secure approach: keep BOT_TOKEN + CHAT_ID on server (Vercel env vars).
-  Server endpoint should accept POST JSON {name,phone,email,message} and forward to Telegram bot.
-  Example endpoint used below (update to your deployed Vercel URL):
-*/
-const SERVER_ENDPOINT = "https://hisobhub-website12.vercel.app/api/sendForm"; // <-- update if different
-
-document.getElementById('contactForm').addEventListener('submit', async function(e){
-  e.preventDefault();
-  const statusEl = document.getElementById('cf_status');
-  const name = document.getElementById('cf_name').value.trim();
-  const phone = document.getElementById('cf_phone').value.trim();
-  const email = document.getElementById('cf_email').value.trim();
-  const message = document.getElementById('cf_message').value.trim();
-
-  if(!name || !phone || !message){
-    statusEl.style.color = '#ffb3b3';
-    statusEl.innerText = (currentLang==='ru') ? i18n.ru.cf_error : 'Iltimos barcha majburiy maydonlarni to‘ldiring.';
-    return;
-  }
-
-  statusEl.style.color = 'var(--gold)';
-  statusEl.innerText = (currentLang==='ru') ? 'Отправка...' : 'Yuborilmoqda...';
-
-  // Try serverless endpoint first (recommended)
-  try{
-    const res = await fetch(SERVER_ENDPOINT, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ name, phone, email, message })
-    });
-    if(res.ok){
-      statusEl.style.color = '#4cff4c';
-      statusEl.innerText = (currentLang==='ru') ? i18n.ru.cf_success : i18n.uz.cf_success;
-      document.getElementById('contactForm').reset();
-      return;
-    } else {
-      console.warn('Server responded non-OK', res.status);
-      // fallthrough to mailto fallback
-    }
-  }catch(err){
-    console.warn('Serverless endpoint failed:', err);
-  }
-
-  // Fallback: use Telegram direct GET (may be blocked by CORS) or mailto
-  try{
-    // If you temporarily want direct Telegram from frontend (NOT SECURE) uncomment and fill BOT_TOKEN/CHAT_ID
-    // const BOT_TOKEN = "YOUR_BOT_TOKEN";
-    // const CHAT_ID = "YOUR_CHAT_ID";
-    // const txt = encodeURIComponent(`📨 New request\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\n\nMessage:\n${message}`);
-    // const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${txt}`;
-    // await fetch(url);
-
-    // Mailto fallback
-    const subject = encodeURIComponent((currentLang==='ru') ? 'HalolHisob: Новая заявка - ' + name : 'HalolHisob: Yangi murojaat - ' + name);
-    const body = encodeURIComponent(`Ism: ${name}\nTelefon: ${phone}\nEmail: ${email}\n\nXabar:\n${message}`);
-    window.location.href = `mailto:info@halolhisob.uz?subject=${subject}&body=${body}`;
-    statusEl.style.color = '#e6c563';
-    statusEl.innerText = (currentLang==='ru') ? '📧 Появится почтовый клиент (fallback).' : '📧 Email mijozingiz ochilmoqda (fallback).';
-  }catch(mailErr){
-    console.error('Fallback failed', mailErr);
-    statusEl.style.color = 'red';
-    statusEl.innerText = (currentLang==='ru') ? i18n.ru.cf_error : i18n.uz.cf_error;
-  }
-});
-
-/* =========== Smooth scrolling for anchor links =========== */
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click', function(e){
-    const target = document.querySelector(this.getAttribute('href'));
-    if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
-  });
-});
-  /* ======================= TELEGRAM FORM WORKING ======================= */
-const BOT_TOKEN = "8510583908:AAHeWTAHaTESJhN9ZfNjqkbkqo5uT5MrzTs_E74";
-const CHAT_ID = "-1003236510040";
-
 document.getElementById("contactForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -504,48 +375,44 @@ document.getElementById("contactForm").addEventListener("submit", async function
 
     if (!name || !phone || !message) {
         status.style.color = "red";
-        status.innerText = "❗ Majburiy maydonlar toldirilmagan!";
+        status.innerText = "Iltimos barcha maydonlarni to‘ldiring.";
         return;
     }
 
-    status.style.color = "var(--gold)";
-    status.innerText = "⏳ Yuborilmoqda...";
+    status.style.color = "yellow";
+    status.innerText = "Yuborilmoqda...";
+
+    const BOT_TOKEN = "AAFw2hqQ5cgFuBanGgnFCchEL6opX3r_E74";
+    const CHAT_ID = "-1003236510040";
 
     const text =
-        `📨 *Yangi murojaat:*\n\n` +
+        `📬 *Yangi murojaat*\n` +
         `👤 *Ism:* ${name}\n` +
         `📞 *Telefon:* ${phone}\n` +
-        `📧 *Email:* ${email || "—"}\n` +
+        `📧 *Email:* ${email || "-"}\n` +
         `💬 *Xabar:* ${message}`;
 
-    try {
-        const send = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: text,
-                parse_mode: "Markdown"
-            })
-        });
+    const url =
+        `https://api.telegram.org/bot${8510583908:AAHeWTAHaTESJhN9ZfNjqkbkqo5uT5MrzTs}/sendMessage?chat_id=${-1003236510040}` +
+        `&parse_mode=Markdown&text=${encodeURIComponent(text)}`;
 
-        if (send.ok) {
-            status.style.color = "#48ff48";
-            status.innerText = "✔️ Yuborildi!";
+    try {
+        const res = await fetch(url);
+
+        if (res.ok) {
+            status.style.color = "#4cff4c";
+            status.innerText = "✔️ Xabar yuborildi!";
             document.getElementById("contactForm").reset();
         } else {
-            throw new Error("Telegram returned error");
+            throw new Error("Telegram javobi noto‘g‘ri");
         }
-    } catch (err) {
-        console.error(err);
-        status.style.color = "yellow";
-        status.innerText = "📧 Telegram ishlamadi, email ochilmoqda...";
-
-        // fallback
-        window.location.href = `mailto:buxgalterconsalt@gmail.com?subject=Yangi murojaat: ${name}&body=${text}`;
+    } catch (error) {
+        status.style.color = "red";
+        status.innerText = "Xatolik! Qayta urinib ko‘ring.";
     }
 });
 </script>
+
 
 </body>
 </html>
