@@ -6,309 +6,90 @@
   <title>HalolHisob — Premium Buxgalteriya</title>
   <meta name="description" content="HalolHisob — premium buxgalteriya, soliq va konsalting xizmatlari." />
   <meta name="theme-color" content="#0b0b0b" />
-
-  <!--
-    IMPORTANT:
-    - To'liq ishlashi uchun quyidagi 2 qiymatni o'zgartiring:
-      const BOT_TOKEN = "PUT_YOUR_BOT_TOKEN_HERE";
-      const CHAT_ID = "PUT_YOUR_CHAT_ID_HERE";
-    - Agar tokenni frontendga qo'ymoqchi bo'lmasangiz, o'zingizning serverless endpoint (Vercel) yarating va shu endpointga POST qiling.
-  -->
-
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='100%25' height='100%25' fill='%23000'/%3E%3Ctext x='50%25' y='55%25' font-size='28' text-anchor='middle' fill='%23ffd44d' font-family='Arial%2C%20sans-serif'%3EHH%3C/text%3E%3C/svg%3E">
   <style>
-  /* =====================
-     THEME: Dark premium + bright accents
-     ===================== */
- /* ========== START: REPLACEMENT CSS ========== */
-:root{
-    --bg-1: #070409;
-    --bg-2: #120916;
-    --glass: rgba(255,255,255,0.03);
-    --gold: #ffd44d;
-    --accent1: #ff6b6b;
-    --accent2: #9b59ff;
-    --muted: #b6b6b6;
-    --radius: 14px;
-    --maxw: 1100px;
-  }
-
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: radial-gradient(1200px 600px at 10% 10%, #20062a 0%, var(--bg-2) 25%, var(--bg-1) 100%);
-    color:#fff;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    line-height:1.5;
-  }
-
-  /* Loader */
-  #loader { position:fixed; inset:0; display:flex;align-items:center;justify-content:center; background:linear-gradient(180deg, rgba(0,0,0,0.9), rgba(0,0,0,0.95)); z-index:9999; transition:opacity .35s ease; }
-  .ring{width:70px;height:70px;border-radius:50%;border:6px solid rgba(255,212,77,0.12);border-top-color:var(--gold);animation:spin 1.3s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .loader-text{color:var(--gold);font-weight:800;margin-top:12px;text-align:center}
-
-  /* Header */
-  header.top{position:sticky;top:0;z-index:60;backdrop-filter: blur(6px);background:linear-gradient(180deg, rgba(8,8,8,0.6), rgba(8,8,8,0.2));border-bottom:1px solid rgba(255,255,255,0.03)}
-  .top-inner{max-width:var(--maxw);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:12px}
-  .brand{display:flex;align-items:center;gap:12px}
-  .logo-badge{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--gold),#ffb86b);display:flex;align-items:center;justify-content:center;color:#070707;font-weight:900;font-size:20px;box-shadow:0 10px 30px rgba(255,200,50,0.12)}
-  .brand-title{font-weight:800;color:var(--gold);font-size:18px}
-  .brand-sub{font-size:12px;color:var(--muted)}
-
-  nav.main{display:flex;gap:16px;align-items:center}
-  nav.main a{color:var(--muted);text-decoration:none;font-weight:600;font-size:15px;padding:8px;border-radius:8px}
-  nav.main a:hover{color:var(--gold);background:rgba(255,212,77,0.03)}
-
-  .lang-switch{display:flex;gap:8px;align-items:center}
-  .lang-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:10px;color:var(--muted);cursor:pointer;font-weight:700}
-  .lang-btn.active{border-color:var(--gold);color:var(--gold)}
-
-  .cta{background:linear-gradient(90deg,var(--gold),#ffb86b);color:#070707;padding:10px 14px;border-radius:10px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-
-  /* Hero */
-  .hero{padding:72px 20px 48px;text-align:center}
-  .hero-inner{max-width:var(--maxw);margin:auto}
-  .kicker{display:inline-block;padding:8px 14px;border-radius:999px;background:rgba(255,212,77,0.06);color:var(--gold);font-weight:800;margin-bottom:16px}
-  .hero h1{font-size:40px;margin:0;color:var(--gold);letter-spacing:0.2px;text-shadow:0 6px 18px rgba(255,200,50,0.06)}
-  .hero p{max-width:900px;margin:14px auto 0;color:var(--muted);font-size:17px}
-  .hero-actions{margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-
-  /* Buttons sizing fix */
-  .btn, .btn-primary, .btn-outline, .form-btn, .cta {
-    padding:10px 16px;
-    border-radius:10px;
-    font-size:15px;
-    font-weight:700;
-    cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    box-sizing:border-box;
-  }
-  .btn-primary, .form-btn {
-    background: linear-gradient(90deg,var(--gold),#ffb86b);
-    color:#070707;
-    border:none;
-    box-shadow:0 8px 28px rgba(255,180,60,0.08);
-  }
-  .btn-outline {
-    background:transparent;
-    color:var(--muted);
-    border:1px solid rgba(255,255,255,0.06);
-  }
-  .btn-primary:hover, .form-btn:hover{transform:translateY(-2px);box-shadow:0 18px 50px rgba(255,180,60,0.12)}
-
-  /* Layout */
-  .wrap{max-width:var(--maxw);margin:28px auto;padding:0 20px;display:grid;grid-template-columns:1fr 360px;gap:28px}
-  @media(max-width:980px){.wrap{grid-template-columns:1fr;padding:0 14px}}
-  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
-  h2{color:var(--gold);margin:0 0 12px 0;font-size:20px}
-
-  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-  .svc{padding:14px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02);transition:transform .18s,box-shadow .18s}
-  .svc:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(255,180,60,0.06)}
-  .svc h3{margin:0;color:#fff}
-
-  .pricing{display:flex;gap:12px;flex-wrap:wrap}
-  .plan{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;min-width:200px;border:1px solid rgba(255,255,255,0.03)}
-  .plan .price{font-size:24px;font-weight:900;color:#fff;margin:8px 0}
-
-  .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
-  .member{text-align:center;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)}
-
-  .contact-card a{display:block;color:var(--gold);font-weight:700;margin-bottom:8px;text-decoration:none}
-  .small{color:var(--muted);font-size:13px}
-
-  input,textarea,select{width:100%;padding:12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff;margin-bottom:10px}
-  input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.35)}
-
-  .map-embed{border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
-  .floating{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:10px;z-index:90}
-  .fab{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#070707;font-weight:900;text-decoration:none;box-shadow:0 10px 30px rgba(155,89,255,0.12)}
-
-  footer{margin-top:36px;padding:28px 20px;background:linear-gradient(180deg,#040404,#060606);color:var(--muted);text-align:center;border-top:1px solid rgba(255,255,255,0.03)}
-  .fade-up{opacity:0;transform:translateY(14px);transition:all .6s ease}
-  .fade-up.show{opacity:1;transform:none}
-/* ========== END: REPLACEMENT CSS ========== */
-
-    /* BUTTON RESPONSIVE FIX */
-.btn,
-.button,
-.form-btn {
-    padding: 10px 16px;
-    font-size: 0.95rem;
-    border-radius: 10px;
-    line-height: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-@media (max-width: 480px) {
-    .btn,
-    .button,
-    .form-btn {
-        padding: 8px 12px;
-        font-size: 0.85rem;
-        border-radius: 8px;
+    /* ---------- THEME & LAYOUT (responsive-friendly) ---------- */
+    :root{
+      --bg-1: #070409;
+      --bg-2: #120916;
+      --gold: #ffd44d;
+      --accent1: #ff6b6b;
+      --accent2: #9b59ff;
+      --muted: #b6b6b6;
+      --radius: 14px;
+      --maxw: 1100px;
     }
-}
-/* LAYOUT RESPONSIVE FIX */
-.wrap {
-    max-width: 1100px;
-    margin: 30px auto;
-    padding: 0 18px;
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 26px;
-}
-
-/* Mobil ekranlarda sidebar pastga tushadi */
-@media (max-width: 980px) {
-    .wrap {
-        grid-template-columns: 1fr;
-        padding: 0 14px;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, #20062a 0%, var(--bg-2) 25%, var(--bg-1) 100%);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
     }
-}
-/* CARD RESPONSIVE FIX */
-.card {
-    padding: 18px;
-    border-radius: 12px;
-}
 
-@media (max-width: 480px) {
-    .card {
-        padding: 14px;
-        border-radius: 10px;
+    /* header */
+    header.top{position:sticky;top:0;z-index:60;backdrop-filter: blur(6px);background:linear-gradient(180deg, rgba(8,8,8,0.6), rgba(8,8,8,0.2));border-bottom:1px solid rgba(255,255,255,0.03)}
+    .top-inner{max-width:var(--maxw);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo-badge{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--gold),#ffb86b);display:flex;align-items:center;justify-content:center;color:#070707;font-weight:900;font-size:18px}
+    .brand-title{font-weight:800;color:var(--gold);font-size:18px}
+    .brand-sub{font-size:12px;color:var(--muted)}
+    nav.main{display:flex;gap:14px;align-items:center}
+    nav.main a{color:var(--muted);text-decoration:none;font-weight:600;padding:8px;border-radius:8px}
+    nav.main a:hover{color:var(--gold);background:rgba(255,212,77,0.03)}
+    .lang-switch{display:flex;gap:8px;align-items:center}
+    .lang-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:10px;color:var(--muted);cursor:pointer;font-weight:700}
+    .lang-btn.active{border-color:var(--gold);color:var(--gold)}
+    .cta{background:linear-gradient(90deg,var(--gold),#ffb86b);color:#070707;padding:10px 14px;border-radius:10px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+
+    /* hero */
+    .hero{padding:68px 18px 40px;text-align:center}
+    .hero-inner{max-width:var(--maxw);margin:auto}
+    .kicker{display:inline-block;padding:8px 14px;border-radius:999px;background:rgba(255,212,77,0.06);color:var(--gold);font-weight:800;margin-bottom:12px}
+    .hero h1{font-size:40px;margin:0;color:var(--gold)}
+    .hero p{max-width:900px;margin:12px auto 0;color:var(--muted);font-size:16px}
+    .hero-actions{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+    /* buttons common */
+    .btn, .form-btn, .cta { padding:10px 16px; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-sizing:border-box;}
+    .btn-primary, .form-btn { background: linear-gradient(90deg,var(--gold),#ffb86b); color:#070707; border:none; box-shadow:0 8px 28px rgba(255,180,60,0.08); }
+    .btn-outline { background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.06); }
+
+    /* layout & cards */
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:0 18px;display:grid;grid-template-columns:1fr 360px;gap:26px}
+    @media (max-width:980px) { .wrap{grid-template-columns:1fr;padding:0 14px} }
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    h2{color:var(--gold);margin:0 0 12px 0;font-size:20px}
+
+    /* grids */
+    .services-grid, .pricing, .team { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:14px; }
+    .svc{padding:14px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)}
+    .small{color:var(--muted);font-size:13px}
+
+    /* form */
+    input, textarea, select { width:100%; padding:12px; border-radius:10px; background:transparent; border:1px solid rgba(255,255,255,0.06); color:#fff; margin-bottom:10px; font-size:15px; }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.35); }
+    #cf_status{margin-top:8px;font-size:13px}
+
+    /* floating */
+    .floating{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:90}
+    .fab{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#070707;font-weight:900;text-decoration:none;box-shadow:0 10px 30px rgba(155,89,255,0.12)}
+
+    /* responsiveness tweaks */
+    @media (max-width: 600px) {
+      .hero h1 { font-size:28px; line-height:1.2 }
+      .btn, .form-btn, .cta { width:100%; justify-content:center; }
+      .top-inner{padding:10px}
+      .wrap{margin:18px auto;gap:18px}
     }
-}
-/* GRID RESPONSIVE FIX */
-.services-grid,
-.pricing,
-.team {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
-}
-/* FORM RESPONSIVE FIX */
-input,
-textarea {
-    font-size: 0.95rem;
-    padding: 10px 12px;
-}
-
-@media (max-width: 480px) {
-    input,
-    textarea {
-        font-size: 0.85rem;
-        padding: 8px 10px;
+    @media (max-width: 420px) {
+      .logo-badge{width:44px;height:44px;font-size:16px}
+      .fab{width:46px;height:46px}
     }
-}
-/* FLOATING BUTTONS RESPONSIVE */
-.floating .fab {
-    width: 48px;
-    height: 48px;
-}
-
-@media (max-width: 480px) {
-    .floating .fab {
-        width: 42px;
-        height: 42px;
-    }
-}
-/* -------- GLOBAL RESPONSIVE FIX -------- */
-
-@media (max-width: 1100px) {
-  .wrap {
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
-}
-
-/* HERO TITLE */
-@media (max-width: 600px) {
-  .hero h1 {
-    font-size: 28px;
-    line-height: 1.2;
-  }
-  .hero p {
-    font-size: 15px;
-  }
-}
-
-/* BUTTONS */
-.btn, .form-btn, .cta {
-  padding: 12px 18px;
-  font-size: 15px;
-}
-
-@media (max-width: 480px) {
-  .btn, .form-btn, .cta {
-    padding: 10px 14px;
-    font-size: 14px;
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-/* GRID SYSTEM */
-.services-grid,
-.pricing,
-.team {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-@media (max-width: 420px) {
-  .services-grid,
-  .pricing,
-  .team {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* SIDEBAR */
-aside .card {
-  position: relative;
-}
-
-@media (max-width: 980px) {
-  aside {
-    order: 99;
-  }
-}
-
-/* INPUTS */
-input,
-textarea {
-  padding: 10px 12px;
-  font-size: 15px;
-}
-
-@media (max-width: 480px) {
-  input,
-  textarea {
-    font-size: 14px;
-    padding: 9px 10px;
-  }
-}
-
-/* FLOATING BUTTONS */
-.floating .fab {
-  width: 54px;
-  height: 54px;
-}
-
-@media (max-width: 480px) {
-  .floating .fab {
-    width: 46px;
-    height: 46px;
-  }
-}
-
-
   </style>
 </head>
 <body>
@@ -316,8 +97,8 @@ textarea {
   <!-- LOADER -->
   <div id="loader">
     <div style="text-align:center">
-      <div class="ring" role="img" aria-hidden="true"></div>
-      <div class="loader-text">HalolHisob — yuklanmoqda...</div>
+      <div class="ring" role="img" aria-hidden="true" style="width:66px;height:66px;border-radius:50%;border:6px solid rgba(255,212,77,0.12);border-top-color:var(--gold);animation:spin 1.3s linear infinite"></div>
+      <div class="loader-text" style="color:var(--gold);font-weight:800;margin-top:10px">HalolHisob — yuklanmoqda...</div>
     </div>
   </div>
 
@@ -408,7 +189,6 @@ textarea {
               <li data-i18n="plan_basic_2">Yillik hisobot</li>
             </ul>
           </div>
-
           <div class="plan">
             <h4 data-i18n="plan_standard">STANDARD</h4>
             <div class="price">$199</div>
@@ -417,7 +197,6 @@ textarea {
               <li data-i18n="plan_std_2">Soliq maslahatlari</li>
             </ul>
           </div>
-
           <div class="plan">
             <h4 data-i18n="plan_premium">PREMIUM</h4>
             <div class="price">$399</div>
@@ -434,17 +213,17 @@ textarea {
         <div class="team">
           <div class="member">
             <div class="avatar" style="width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#222,#111);margin:0 auto 8px"></div>
-            <strong data-i18n="member1_name">Shohruhmirzo</strong>
+            <strong data-i18n="member1_name">Aziz</strong>
             <div class="small" data-i18n="member1_role">Bosh buxgalter</div>
           </div>
           <div class="member">
             <div class="avatar" style="width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#222,#111);margin:0 auto 8px"></div>
-            <strong data-i18n="member2_name">Nozima</strong>
+            <strong data-i18n="member2_name">Gulbahor</strong>
             <div class="small" data-i18n="member2_role">Soliq mutaxassisi</div>
           </div>
           <div class="member">
             <div class="avatar" style="width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#222,#111);margin:0 auto 8px"></div>
-            <strong data-i18n="member3_name">Muhammadziyo</strong>
+            <strong data-i18n="member3_name">Javlon</strong>
             <div class="small" data-i18n="member3_role">Kadrlar bo‘limi</div>
           </div>
         </div>
@@ -516,153 +295,66 @@ textarea {
    Page init & loader
    ====================== */
 document.addEventListener('DOMContentLoaded', ()=> {
-  // fade-up reveal
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
   },{threshold:0.12});
   document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
 
-  // hide loader
   setTimeout(()=> {
     const l = document.getElementById('loader');
-    if(l) l.style.opacity = '0', setTimeout(()=> l.remove(), 400);
-  }, 600);
+    if(l) l.style.opacity = '0', setTimeout(()=> l.remove(), 300);
+  }, 500);
 });
 
 /* ======================
-   Basic i18n (UZ/RU)
+   i18n object (UZ / RU)
    ====================== */
 const i18n = {
   uz: {
-    nav_about: "Biz haqimizda",
-    nav_services: "Xizmatlar",
-    nav_pricing: "Narxlar",
-    nav_team: "Jamoa",
-    nav_contact: "Aloqa",
-    nav_map: "Filiallar",
-
-    cta_quote: "Bepul maslahat",
-    hero_kicker: "Premium xizmat",
-    heroTitle: "Buxgalteriya va soliq xizmatlari — HalolHisob",
+    nav_about: "Biz haqimizda", nav_services: "Xizmatlar", nav_pricing: "Narxlar", nav_team: "Jamoa",
+    nav_contact: "Aloqa", nav_map: "Filiallar", cta_quote: "Bepul maslahat",
+    hero_kicker: "Premium xizmat", heroTitle: "Buxgalteriya va soliq xizmatlari — HalolHisob",
     heroText: "Hisob-kitoblaringiz ishonchli qo‘llarda — soliq, buxgalteriya va kadrlar bo‘yicha to‘liq servis.",
-    cta_consult: "Bepul maslahat",
-    cta_services: "Xizmatlarimiz",
-
-    aboutH: "Biz haqimizda",
-    aboutP: "HalolHisob — korxonalar va tadbirkorlar uchun premium buxgalteriya, soliq va konsalting xizmatlarini taqdim qiladi.",
-
-    servicesH: "Xizmatlar",
-    svc1_h: "Buxgalteriya hisobini yuritish",
-    svc1_p: "Doimiy hisob-kitob, menyu tahlil va hisobotlar.",
-    svc2_h: "Soliq hisobotlari",
-    svc2_p: "Soliq rejalashtirish va hisobotlarni topshirish.",
-    svc3_h: "Konsalting",
-    svc3_p: "Moliyaviy va strategik maslahatlar.",
-    svc4_h: "Kadrlar hisobi",
-    svc4_p: "Xodimlar hujjatlari va boshqaruvi.",
-
-    pricingH: "Narxlar",
-    plan_basic: "BASIC",
-    plan_basic_1: "Asosiy hisob-kitob",
-    plan_basic_2: "Yillik hisobot",
-    plan_standard: "STANDARD",
-    plan_std_1: "Barcha BASIC funksiyalari",
-    plan_std_2: "Soliq maslahatlari",
-    plan_premium: "PREMIUM",
-    plan_prem_1: "Barcha funksiya mavjud",
-    plan_prem_2: "Shaxsiy konsalting",
-
-    teamH: "Jamoa",
-    member1_name: "Shohruhmirzo",
-    member1_role: "Bosh buxgalter",
-    member2_name: "Nozima",
-    member2_role: "Soliq mutaxassisi",
-    member3_name: "Muhammadziyo",
-    member3_role: "Kadrlar bo‘limi",
-
-    testimonialsH: "Mijozlar fikri",
-    test1_text: "“Juda professional xizmat, hamma hujjatlar joyida.”",
-    test1_author: "— Kamol",
-    test2_text: "“Soliq bo‘yicha aniq maslahatlar berdilar.”",
-    test2_author: "— Nilufar",
-    test3_text: "“Ish uslubi juda tartibli va tez.”",
-    test3_author: "— Sardor",
-
-    contactH: "Aloqa",
-    formH: "Bizga yozing",
-    sendBtn: "Yuborish",
-    fallback_note: "* Agar Telegram ishlamasa, email ochiladi.",
-    mapH: "Xarita",
-    worktime: "Ish vaqti: Dush–Shan 09:00–17:00",
-
-    cf_success: "✔️ Muvaffaqiyatli yuborildi!",
-    cf_error: "❌ Xatolik! Qayta urinib ko‘ring."
+    aboutH: "Biz haqimizda", aboutP: "HalolHisob — korxona va tadbirkorlar uchun premium sinfdagi buxgalteriya, soliq va konsalting xizmatlarini taqdim etadi. Biz halol, shaffof va professional ishlaymiz.",
+    servicesH: "Xizmatlar", svc1_h: "Buxgalteriya hisobini yuritish", svc1_p: "Doimiy hisob-kitob, menyu tahlil va hisobotlar.",
+    svc2_h: "Soliq hisobotlari", svc2_p: "Soliq rejalashtirish va hisobotlarni topshirish.",
+    svc3_h: "Konsalting", svc3_p: "Moliyaviy va strategik maslahatlar.",
+    svc4_h: "Kadrlar hisobi", svc4_p: "Xodimlar hisobini yuritish va hujjatlar.",
+    pricingH: "Narxlar", plan_basic: "BASIC", plan_basic_1: "Asosiy hisob-kitob", plan_basic_2: "Yillik hisobot",
+    plan_standard: "STANDARD", plan_std_1: "Barcha BASIC", plan_std_2: "Soliq maslahatlari",
+    plan_premium: "PREMIUM", plan_prem_1: "Barcha funksiya", plan_prem_2: "Shaxsiy konsultant",
+    teamH: "Jamoa", member1_name: "Aziz", member1_role: "Bosh buxgalter", member2_name: "Gulbahor", member2_role: "Soliq mutaxassisi",
+    member3_name: "Javlon", member3_role: "Kadrlar bo‘limi",
+    testimonialsH: "Mijozlar fikri", test1_text: "“Juda professional xizmat, hamma hujjatlar joyida.”", test1_author: "— Kamol",
+    test2_text: "“Soliq bo‘yicha aniq maslahatlar berdilar.”", test2_author: "— Nilufar",
+    test3_text: "“Ish uslubi juda tartibli va tez.”", test3_author: "— Sardor",
+    contactH: "Aloqa", formH: "Bizga yozing", sendBtn: "Yuborish",
+    fallback_note: "* Agar Telegram orqali yuborish muvaffaqiyatsiz bo‘lsa, email mijozingiz ochiladi (fallback).",
+    mapH: "Xarita", worktime: "Ish vaqti: Dush–Shan 09:00–18:00",
+    cf_success: "✔️ Muvaffaqiyatli yuborildi!", cf_error: "❌ Xatolik! Iltimos keyinroq urinib ko‘ring."
   },
-
   ru: {
-    nav_about: "О нас",
-    nav_services: "Услуги",
-    nav_pricing: "Цены",
-    nav_team: "Команда",
-    nav_contact: "Контакты",
-    nav_map: "Филиалы",
-
-    cta_quote: "Бесплатная консультация",
-    hero_kicker: "Премиум услуги",
-    heroTitle: "Бухгалтерские и налоговые услуги — HalolHisob",
+    nav_about: "О нас", nav_services: "Услуги", nav_pricing: "Цены", nav_team: "Команда",
+    nav_contact: "Контакты", nav_map: "Филиалы", cta_quote: "Бесплатная консультация",
+    hero_kicker: "Премиум услуги", heroTitle: "Бухгалтерские и налоговые услуги — HalolHisob",
     heroText: "Ваши расчёты в надёжных руках — бухгалтерия, налоги и кадры под ключ.",
-    cta_consult: "Получить консультацию",
-    cta_services: "Наши услуги",
-
-    aboutH: "О нас",
-    aboutP: "HalolHisob предоставляет премиальные бухгалтерские, налоговые и консалтинговые услуги.",
-
-    servicesH: "Услуги",
-    svc1_h: "Ведение бухгалтерии",
-    svc1_p: "Постоянный учёт, анализ и отчётность.",
-    svc2_h: "Налоговая отчётность",
-    svc2_p: "Планирование налогов и подача отчётов.",
-    svc3_h: "Консалтинг",
-    svc3_p: "Финансовые и стратегические консультации.",
-    svc4_h: "Кадровый учёт",
-    svc4_p: "Документы и управление персоналом.",
-
-    pricingH: "Цены",
-    plan_basic: "BASIC",
-    plan_basic_1: "Базовый учёт",
-    plan_basic_2: "Годовой отчёт",
-    plan_standard: "STANDARD",
-    plan_std_1: "Все функции BASIC",
-    plan_std_2: "Налоговые консультации",
-    plan_premium: "PREMIUM",
-    plan_prem_1: "Все функции включены",
-    plan_prem_2: "Персональный консультант",
-
-    teamH: "Команда",
-    member1_name: "Шаха",
-    member1_role: "Главный бухгалтер",
-    member2_name: "Назы",
-    member2_role: "Налоговый эксперт",
-    member3_name: "Мухаммадьзия",
-    member3_role: "Отдел кадров",
-
-    testimonialsH: "Отзывы клиентов",
-    test1_text: "“Очень профессионально, все документы в порядке.”",
-    test1_author: "— Камол",
-    test2_text: "“Дали точные и полезные налоговые советы.”",
-    test2_author: "— Нилуфар",
-    test3_text: "“Работа организована и оперативна.”",
-    test3_author: "— Сардор",
-
-    contactH: "Контакты",
-    formH: "Свяжитесь с нами",
-    sendBtn: "Отправить",
+    aboutH: "О нас", aboutP: "HalolHisob предоставляет премиальные бухгалтерские, налоговые и консалтинговые услуги.",
+    servicesH: "Услуги", svc1_h: "Ведение бухгалтерии", svc1_p: "Постоянный учёт, анализ и отчётность.",
+    svc2_h: "Налоговая отчётность", svc2_p: "Планирование налогов и подача отчётов.",
+    svc3_h: "Консалтинг", svc3_p: "Финансовые и стратегические консультации.",
+    svc4_h: "Кадровый учёт", svc4_p: "Документы и управление персоналом.",
+    pricingH: "Цены", plan_basic: "BASIC", plan_basic_1: "Базовый учёт", plan_basic_2: "Годовой отчёт",
+    plan_standard: "STANDARD", plan_std_1: "Все функции BASIC", plan_std_2: "Налоговые консультации",
+    plan_premium: "PREMIUM", plan_prem_1: "Все функции", plan_prem_2: "Персональный консультант",
+    teamH: "Команда", member1_name: "Aziz", member1_role: "Гл. бухгалтер", member2_name: "Gulbahor", member2_role: "Налоговый эксперт",
+    member3_name: "Javlon", member3_role: "Отдел кадров",
+    testimonialsH: "Отзывы клиентов", test1_text: "“Очень профессионально, все документы в порядке.”", test1_author: "— Камол",
+    test2_text: "“Дали точные и полезные налоговые советы.”", test2_author: "— Nilufar",
+    test3_text: "“Работа организована и оперативна.”", test3_author: "— Sardor",
+    contactH: "Контакты", formH: "Свяжитесь с нами", sendBtn: "Отправить",
     fallback_note: "* Если Telegram недоступен, откроется почта.",
-    mapH: "Карта",
-    worktime: "Рабочие часы: Пн–Сб 09:00–18:00",
-
-    cf_success: "✔️ Успешно отправлено!",
-    cf_error: "❌ Ошибка! Попробуйте позже."
+    mapH: "Карта", worktime: "Рабочие часы: Пн–Сб 09:00–18:00",
+    cf_success: "✔️ Успешно отправлено!", cf_error: "❌ Ошибка! Попробуйте позже."
   }
 };
 
@@ -673,6 +365,9 @@ function applyLang(code){
     const key = el.getAttribute('data-i18n');
     if(i18n[code] && i18n[code][key] !== undefined) el.innerText = i18n[code][key];
   });
+  // reset status area when language changes
+  const s = document.getElementById('cf_status');
+  if(s) s.innerText = '';
 }
 document.querySelectorAll('.lang-btn').forEach(b=>{
   b.addEventListener('click', ()=> {
@@ -685,16 +380,16 @@ document.querySelectorAll('.lang-btn').forEach(b=>{
 applyLang(currentLang);
 
 /* ======================
-   Telegram contact form (GET) - GitHub Pages friendly
+   TELEGRAM CONTACT FORM (GitHub Pages friendly GET)
    ====================== */
 
 /*
-  WARNING:
-  - Frontend bot token exposure is insecure. For production, use server-side.
-  - If you still want to test now, replace BOT_TOKEN and CHAT_ID below with your values.
+  IMPORTANT:
+  - For production: create server-side endpoint and keep BOT_TOKEN secret.
+  - If you want quick test on GitHub Pages, replace BOT_TOKEN and CHAT_ID below (NOT SECURE).
 */
-const BOT_TOKEN = "8510583908:AAHeWTAHaTESJhN9ZfNjqkbkqo5uT5MrzTs"; // <-- REPLACE with your bot token
-const CHAT_ID = "-1003236510040";     // <-- REPLACE with your chat id or -100xxx group id
+const BOT_TOKEN = ""; // <-- put token here only for quick local/GitHubPages test (NOT SECURE)
+const CHAT_ID = "";   // <-- put chat id here e.g. "-1001234567890"
 
 const contactForm = document.getElementById('contactForm');
 const statusEl = document.getElementById('cf_status');
@@ -709,7 +404,7 @@ if(contactForm){
 
     if(!name || !phone || !message){
       statusEl.style.color = '#ffb3b3';
-      statusEl.innerText = (currentLang === 'ru') ? 'Пожалуйста, заполните все поля.' : 'Iltimos barcha majburiy maydonlarni to‘ldiring.';
+      statusEl.innerText = (currentLang === 'ru') ? i18n.ru.cf_error : 'Iltimos barcha majburiy maydonlarni to‘ldiring.';
       return;
     }
 
@@ -723,35 +418,36 @@ if(contactForm){
       `*Email:* ${email || '—'}\n` +
       `*Xabar:* ${message}`;
 
-    // Telegram GET URL (works with GitHub Pages in most browsers)
-    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&parse_mode=Markdown&text=${encodeURIComponent(text)}`;
-
-    try{
-      const res = await fetch(url);
-      if(res.ok){
-        statusEl.style.color = '#4cff4c';
-        statusEl.innerText = (currentLang==='ru') ? '✔️ Успешно отправлено!' : '✔️ Muvaffaqiyatli yuborildi!';
-        contactForm.reset();
-        return;
-      } else {
-        // attempt to read response for debugging
-        let body = null;
-        try{ body = await res.json(); console.warn('Telegram API response:', body); }catch(_){}
-        throw new Error('Telegram returned non-OK status');
-      }
-    }catch(err){
-      console.warn('Telegram API failed:', err);
-      // fallback: open mail client
+    if(BOT_TOKEN && CHAT_ID){
+      // GitHub Pages friendly: GET request (may work in many browsers)
+      const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&parse_mode=Markdown&text=${encodeURIComponent(text)}`;
       try{
-        const subject = encodeURIComponent((currentLang==='ru') ? 'HalolHisob: Новая заявка - ' + name : 'HalolHisob: Yangi murojaat - ' + name);
-        const body = encodeURIComponent(`Ism: ${name}\nTelefon: ${phone}\nEmail: ${email}\n\nXabar:\n${message}`);
-        window.location.href = `mailto:info@halolhisob.uz?subject=${subject}&body=${body}`;
-        statusEl.style.color = '#e6c563';
-        statusEl.innerText = (currentLang==='ru') ? '📧 Почтовый клиент открыт (fallback).' : '📧 Email mijozingiz ochilmoqda (fallback).';
-      }catch(mailErr){
-        statusEl.style.color = 'red';
-        statusEl.innerText = (currentLang==='ru') ? '❌ Ошибка!' : '❌ Xatolik!';
+        const res = await fetch(url);
+        if(res.ok){
+          statusEl.style.color = '#4cff4c';
+          statusEl.innerText = (currentLang==='ru') ? i18n.ru.cf_success : i18n.uz.cf_success;
+          contactForm.reset();
+          return;
+        } else {
+          let body = null;
+          try{ body = await res.json(); console.warn('Telegram API response:', body); }catch(_){}
+          throw new Error('Telegram returned non-OK status');
+        }
+      }catch(err){
+        console.warn('Telegram API failed:', err);
       }
+    }
+
+    // Fallback: open mail client
+    try{
+      const subject = encodeURIComponent((currentLang==='ru') ? 'HalolHisob: Новая заявка - ' + name : 'HalolHisob: Yangi murojaat - ' + name);
+      const body = encodeURIComponent(`Ism: ${name}\nTelefon: ${phone}\nEmail: ${email}\n\nXabar:\n${message}`);
+      window.location.href = `mailto:info@halolhisob.uz?subject=${subject}&body=${body}`;
+      statusEl.style.color = '#e6c563';
+      statusEl.innerText = (currentLang==='ru') ? '📧 Почтовый клиент открыт (fallback).' : '📧 Email mijozingiz ochilmoqda (fallback).';
+    }catch(mailErr){
+      statusEl.style.color = 'red';
+      statusEl.innerText = (currentLang==='ru') ? '❌ Ошибка!' : '❌ Xatolik!';
     }
   });
 }
@@ -765,7 +461,6 @@ if(contactForm){
     });
   });
 })();
-
 </script>
 
 </body>
